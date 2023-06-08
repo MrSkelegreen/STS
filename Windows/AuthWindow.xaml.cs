@@ -39,5 +39,10 @@ namespace STS
                 Watermark.Visibility = Visibility.Visible;
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

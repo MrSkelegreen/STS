@@ -8,12 +8,18 @@
     <Compile Update="Windows\AuthWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\RegWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Windows\ApplicantMainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\AuthWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\RegWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

@@ -82,3 +82,5 @@ C:\Users\XE\Desktop\STS\obj\Debug\net7.0-windows\Windows\ApplicantMainWindow.g.c
 C:\Users\XE\Desktop\STS\obj\Debug\net7.0-windows\Windows\ApplicantMainWindow.baml
 N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\ApplicantMainWindow.g.cs
 N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\ApplicantMainWindow.baml
+N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\RegWindow.g.cs
+N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\RegWindow.baml

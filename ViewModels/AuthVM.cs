@@ -79,15 +79,35 @@ namespace STS.ViewModels
                             }
                         }
                         else
-                        {
-                            //MessageBox.Show("Ты чо ахуел блять");
-
+                        {                            
                             IsWarningVisible = true;
                         }
                         
                     }));
             }
         }
-        
+
+
+        //Открыть регистрацию
+        private RelayCommand _openRegWindow;
+        public RelayCommand OpenRegWindow
+        {
+            get
+            {
+                return _openRegWindow ??
+                    (_openRegWindow = new RelayCommand(open =>
+                    {                                                                                     
+                            RegWindow rw = new RegWindow();
+                            rw.Show();
+                        foreach (Window item in App.Current.Windows)
+                        {
+                            if (item.GetType() == typeof(AuthWindow))
+                            {
+                                item.Close();
+                            }
+                        }
+                    }));
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STS"
         mc:Ignorable="d"
-        Title="AuthWindow" Height="500" Width="400" WindowStartupLocation="CenterScreen">
+        Title="AuthWindow" Height="550" Width="400" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style x:Key="PB" TargetType="PasswordBox">
@@ -26,14 +26,14 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="57*"/>
-            <RowDefinition Height="57*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="31"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="31"/>
             <RowDefinition Height="57"/>
-            <RowDefinition Height="57*"/>
-            <RowDefinition Height="57*"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" FontSize="40" Text="Вход" Margin="0,0,0,57" Grid.RowSpan="2" Width="86"/>
@@ -60,8 +60,8 @@
  
         <Button Grid.Column="1" Grid.Row="7" Content="Войти" FontSize="35" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=pwBox}"/>
 
+        <Button Grid.Column="1" Grid.Row="8"  FontSize="20" Height="35" VerticalAlignment="Center" Content="Регистрация" Command="{Binding OpenRegWindow}" Click="Button_Click"/>
 
-       
     </Grid>
     
 </Window>
