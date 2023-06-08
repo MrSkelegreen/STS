@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>STS</id>
+    <version>1.0.0</version>
+    <authors>STS</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net7.0-windows7.0">
+        <dependency id="Npgsql.EntityFrameworkCore.PostgreSQL" version="7.0.4" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net7.0-windows7.0">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="C:\Users\XE\Desktop\STS\bin\Debug\net7.0-windows\STS.runtimeconfig.json" target="lib\net7.0-windows7.0\STS.runtimeconfig.json" />
+    <file src="C:\Users\XE\Desktop\STS\bin\Debug\net7.0-windows\STS.dll" target="lib\net7.0-windows7.0\STS.dll" />
+  </files>
+</package>

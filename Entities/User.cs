@@ -17,6 +17,8 @@ public partial class User
 
     public string? Aboutmyself { get; set; }
 
+    public string? pw {  get; set; }
+
     /// <summary>
     /// false - applicant, true - employer
     /// </summary>

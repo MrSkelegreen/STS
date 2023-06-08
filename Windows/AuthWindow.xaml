@@ -5,8 +5,63 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STS"
         mc:Ignorable="d"
-        Title="AuthWindow" Height="450" Width="800">
+        Title="AuthWindow" Height="500" Width="400" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style x:Key="PB" TargetType="PasswordBox">
+            <EventSetter Event="PasswordChanged" Handler="PasswordBox_PasswordChanged"/>
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+
+    </Window.Resources>
+    
     <Grid>
-        <TextBlock Text="{Binding User.Firstname}"/>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="57*"/>
+            <RowDefinition Height="57*"/>
+            <RowDefinition Height="31"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="31"/>
+            <RowDefinition Height="57"/>
+            <RowDefinition Height="57*"/>
+            <RowDefinition Height="57*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" FontSize="40" Text="Вход" Margin="0,0,0,57" Grid.RowSpan="2" Width="86"/>
+
+        <TextBox x:Name="emailBox" Grid.Column="1" Grid.Row="3" FontSize="18" Text="{Binding User.Email}"/>
+        <TextBlock Grid.Column="1" Grid.Row="3" IsHitTestVisible="False" FontSize="18" Foreground="Gray" Text="Email" Margin="3,0,0,0">
+
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=emailBox}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <PasswordBox x:Name="pwBox" Grid.Column="1" Grid.Row="5" FontSize="18" Style="{StaticResource PB}"/>
+        <TextBlock Name="Watermark" Grid.Column="1" Grid.Row="5" IsHitTestVisible="False" FontSize="18" Foreground="Gray" Text="Пароль" Margin="3,0,0,0"/>
+
+        <TextBlock Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Введены некорректные данные" FontSize="13" Foreground="#FFDC0A0A" Visibility="{Binding IsWarningVisible, Converter={StaticResource BoolToVisibility}}"/>
+ 
+        <Button Grid.Column="1" Grid.Row="7" Content="Войти" FontSize="35" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=pwBox}"/>
+
+
+       
     </Grid>
+    
 </Window>

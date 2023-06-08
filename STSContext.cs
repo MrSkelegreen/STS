@@ -459,6 +459,11 @@ public partial class STSContext : DbContext
             entity.Property(e => e.Role)
                 .HasComment("false - applicant, true - employer")
                 .HasColumnName("role");
+
+            entity.Property(e => e.pw)
+                .HasMaxLength(100)
+                .HasColumnName("pw")
+                .HasComment("password");
         });
 
         OnModelCreatingPartial(modelBuilder);

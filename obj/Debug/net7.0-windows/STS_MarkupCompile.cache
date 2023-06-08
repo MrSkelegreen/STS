@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 N:\DZ\TRPO\KURSACH\Project\STS\App.xaml
-1-1461116264
+2-59347504
 
-251616204951
+26-1007728473
 2122005149740
-Windows\AuthWindow.xaml;
+Windows\ApplicantMainWindow.xaml;Windows\AuthWindow.xaml;
 
 False
 
