@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace STS.ViewModels
 {
@@ -35,15 +36,42 @@ namespace STS.ViewModels
             }
         }
 
-        private int _role;
-        public int Role
+        /*private bool _role;
+        public bool Role
         {
             get { return _role; }
             set
             {
                 _role = value;
+                ChangeRole();
                 OnPropertyChanged("Role");
+               
             }
+        }*/
+
+        private string _warningText;
+        public string WarningText
+        {
+            get { return _warningText; }
+            set
+            {
+                _warningText = value;
+                OnPropertyChanged("WarningText");
+            }
+        }
+
+        private ObservableCollection<string> _roles;
+        public ObservableCollection<string> Roles
+        {
+            get { return _roles; }
+            set {_roles = value;}
+        }
+
+        private string _role;
+        public string Role
+        {
+            get { return _role; }
+            set { _role = value; }
         }
 
         public RegVM()
@@ -56,7 +84,17 @@ namespace STS.ViewModels
             _user.Email = string.Empty;
             _user.pw = string.Empty;
 
-            _role = 1;
+            //_role = false;
+
+            Roles = new ObservableCollection<string>()
+            {
+                "Соискатель",
+                "Работодатель"
+            };
+
+            _role = "Соискатель";
+
+            _warningText= "фывфыв";
         }
 
         private RelayCommand _regCommand;
@@ -67,36 +105,96 @@ namespace STS.ViewModels
                 return _regCommand ??
                    (_regCommand = new RelayCommand(password =>
                    {
-                       _user.pw = (password as PasswordBox).Password;
+                       _user.pw = ((PasswordBox)password).Password;
 
                        STSContext context = new STSContext();
 
-                       var user = context.Users.SingleOrDefault(x => x.Email == _user.Email && x.pw == _user.pw);
+                       var user = context.Users.SingleOrDefault(x => x.Email == _user.Email);
 
-                       if (user == null)
+                       if(_user.Email == string.Empty || _user.pw == string.Empty || _user.Firstname == string.Empty || _user.Lastname == string.Empty)
                        {
-                           ApplicantMainWindow amw = new ApplicantMainWindow();
-
-                           _user.Role = true; //СДЕЛАЙ ПРИВЯЗКУ РОЛИ
-
-                           context.Database.ExecuteSqlRaw($" INSERT INTO \"STS\".\"STS\".users  (Firstname, Lastname, Patronymic, Email, Role, pw) VALUES ('{_user.Firstname}', '{_user.Lastname}', '{_user.Patronymic}', '{_user.Email}', '{_user.Role}', '{_user.pw}');");
-
-                           amw.Show();
-                           foreach (Window item in App.Current.Windows)
-                           {
-                               if (item.GetType() == typeof(AuthWindow))
-                               {
-                                   item.Close();
-                               }
-                           }
+                           WarningText = "Введены некорректные данные";
+                           IsWarningVisible = true;
                        }
                        else
-                       {                         
-                           IsWarningVisible = true;
+                       {
+                           if (user == null)
+                           {
+                               ApplicantMainWindow amw = new ApplicantMainWindow();
+
+                              // _user.Role = true; //СДЕЛАЙ ПРИВЯЗКУ РОЛИ
+                              if (Role == "Работодатель")
+                               {
+                                   _user.Role = true;
+                               }
+
+                               context.Database.ExecuteSqlRaw($" INSERT INTO \"STS\".\"STS\".users  (Firstname, Lastname, Patronymic, Email, Role, pw) VALUES ('{_user.Firstname}', '{_user.Lastname}', '{_user.Patronymic}', '{_user.Email}', '{_user.Role}', '{_user.pw}');");
+
+                               amw.Show();
+                               foreach (Window item in App.Current.Windows)
+                               {
+                                   if (item.GetType() == typeof(RegWindow))
+                                   {
+                                       item.Close();
+                                   }
+                               }
+                           }
+                           else
+                           {
+                               WarningText = "Пользователь с таким email уже существует";
+                               IsWarningVisible = true;
+                           }
+                       }
+
+                      
+
+                   }));
+            }
+        }
+
+        private RelayCommand _openLogin;
+        public RelayCommand OpenLogin
+        {
+            get
+            {
+                return _openLogin ??
+                   (_openLogin = new RelayCommand(open =>
+                   {
+                       AuthWindow aw = new AuthWindow();
+
+                       aw.Show();
+                       foreach (Window item in App.Current.Windows)
+                       {
+                           if (item.GetType() == typeof(RegWindow))
+                           {
+                               item.Close();
+                           }
                        }
 
                    }));
             }
+        }
+
+        private RelayCommand _selectedRoleCommand;
+        public RelayCommand SelectedRoleCommand
+        {
+            get
+            {
+                return _selectedRoleCommand ??
+                    (_selectedRoleCommand = new RelayCommand(role =>
+                    {
+                        User.Email = "lal";
+                        //OnPropertyChanged(_user.Email);
+                    }));
+            }
+        }
+
+        public void ChangeRole()
+        {
+           // _user.Role = _role == false ? _role = true : _role = false;
+             
+            //_user.Email = "lol";
+            //SelectedRoleCommand.Execute(null);
         }
 
     }

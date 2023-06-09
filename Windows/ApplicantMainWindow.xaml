@@ -5,25 +5,75 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STS.Windows"
         mc:Ignorable="d"
-        Title="ApplicantMainWindow" Height="1080" Width="1920" WindowStyle="None">
+        Title="ApplicantMainWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1171*"/>
-            <ColumnDefinition Width="749*"/>
+            <ColumnDefinition Width="289*"/>
+            <ColumnDefinition Width="34*"/>
+            <ColumnDefinition Width="309*"/>
+            <ColumnDefinition Width="218*"/>
+            <ColumnDefinition Width="349*"/>
+            <ColumnDefinition Width="252*"/>
+            <ColumnDefinition Width="253*"/>
+            <ColumnDefinition Width="122*"/>
+            <ColumnDefinition Width="94*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="96*"/>
+            <RowDefinition Height="85*"/>
+            <RowDefinition Height="39*"/>
+            <RowDefinition Height="621*"/>
+            <RowDefinition Height="37*"/>
+            <RowDefinition Height="102*"/>
         </Grid.RowDefinitions>
 
-        <Grid Name="Toolbar" Grid.Row="0" Grid.ColumnSpan="3" Background="#FF7D7777" MouseDown="Toolbar_MouseDown">
-            <StackPanel HorizontalAlignment="Right">
-                <Button Height="40" Width="40" Content="X" Background="#FFE61D1D" Click="Button_Click"/>
+        <!--Шапка-->
+        <Grid Name="Toolbar" Grid.Row="0" Grid.ColumnSpan="9" Background="#FF7D7777" MouseDown="Toolbar_MouseDown">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="630"/>
+                <ColumnDefinition Width="Auto" MinWidth="275"/>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="СКС" FontSize="65" Grid.ColumnSpan="2" Margin="0,0,16,0"/>
+            <TextBlock  Grid.ColumnSpan="3" Text="Система тестирования соискателей" VerticalAlignment="Center" FontSize="30" Margin="130,0,0,0" Height="40"/>
+            <TextBlock Grid.Column="1" Text="Тесты" FontSize="65" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="2" Text="Компании" FontSize="65" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="3" Text="Избранное" FontSize="65" HorizontalAlignment="Center"/>
+
+            <Image Grid.Column="4" Margin="0,0,80,0" Source="{StaticResource Profile}" />
+
+            <StackPanel HorizontalAlignment="Right" Grid.Column="4">
+                <Button Height="40" Width="40" Content="X" Background="#FFE61D1D" Click="Button_Click" HorizontalAlignment="Right"/>
             </StackPanel>
         </Grid>
+
+        <TextBlock Grid.Column="2" Grid.Row="1" Text="Тесты" FontSize="60"/>
+
+        <!--Сортировка и поиск-->
+        <StackPanel Grid.Column="2" Grid.ColumnSpan="6" Grid.Row="2" Background="#FFE8DCDC" >
+
+        </StackPanel>
+
+        <!--Тесты-->
+        <StackPanel Grid.Column="2" Grid.ColumnSpan="6" Grid.Row="4" Background="#FFDCCFCF" >
+
+        </StackPanel>
+
+        <!--Категории-->
+        <StackPanel Grid.Row="4" Background="#FFECE1E1" >
+
+        </StackPanel>
+
+        <!--Подвал-->
+        <StackPanel Grid.ColumnSpan="9" Grid.Row="6" Background="#FFD8D6D6" >
+
+        </StackPanel>
 
     </Grid>
 </Window>

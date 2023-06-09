@@ -98,14 +98,14 @@
 
         <DockPanel Name="RoleSelecter" Grid.Column="1" Grid.Row="12">
             <TextBlock Text="Кто вы?" VerticalAlignment="Center"/>
-            <ComboBox Name="roleBox"  Margin="15,0,0,0" VerticalContentAlignment="Center"/> <!--подпишись на обновление этого контрола-->
+            <ComboBox Name="roleBox"  Margin="15,0,0,0" VerticalContentAlignment="Center" ItemsSource="{Binding Path=Roles}" SelectedItem="{Binding Path=Role}"/> <!--подпишись на обновление этого контрола-->
         </DockPanel>
 
-        <TextBlock Grid.Column="1" Grid.Row="13" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Введены некорректные данные" FontSize="13" Foreground="#FFDC0A0A" Visibility="{Binding IsWarningVisible, Converter={StaticResource BoolToVisibility}}"/>
+        <TextBlock  Grid.Row="13" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding WarningText}" FontSize="13" Foreground="#FFDC0A0A" Visibility="{Binding IsWarningVisible, Converter={StaticResource BoolToVisibility}}"/>
 
         <Button Grid.Column="1" Grid.Row="14" VerticalAlignment="Center" Height="60" Content="Зарегестрироваться" FontSize="23"  Command="{Binding RegCommand}" CommandParameter="{Binding ElementName=pwBox}"/>
 
-        <Button Grid.Column="1" Grid.Row="15" VerticalAlignment="Center" Height="30" Width="200" Content="Войти" FontSize="18"/>
+        <Button Grid.Column="1" Grid.Row="15" VerticalAlignment="Center" Height="30" Width="200" Content="Войти" FontSize="18" Command="{Binding OpenLogin}"/>
 
     </Grid>
 </Window>

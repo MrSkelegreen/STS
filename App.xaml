@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:STS"
              StartupUri="Windows/AuthWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <BitmapImage x:Key="Profile" UriSource="/Images/profileIcon.png"/>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
