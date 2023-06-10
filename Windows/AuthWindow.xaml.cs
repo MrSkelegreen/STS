@@ -26,6 +26,7 @@ namespace STS
         {
             InitializeComponent();
             this.DataContext = new AuthVM();
+            pwBox.Password = "1";
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)

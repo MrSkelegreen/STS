@@ -38,8 +38,8 @@
 
         <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" FontSize="40" Text="Вход" Margin="0,0,0,57" Grid.RowSpan="2" Width="86"/>
 
-        <TextBox x:Name="emailBox" Grid.Column="1" Grid.Row="3" FontSize="18" Text="{Binding User.Email}"/>
-        <TextBlock Grid.Column="1" Grid.Row="3" IsHitTestVisible="False" FontSize="18" Foreground="Gray" Text="Email" Margin="3,0,0,0">
+        <TextBox x:Name="emailBox" Grid.Column="1" Grid.Row="3" FontSize="18" Text="{Binding User.Email}" VerticalContentAlignment="Center"/>
+        <TextBlock Grid.Column="1" Grid.Row="3" IsHitTestVisible="False" FontSize="18" Foreground="Gray" Text="Email" Margin="3,0,0,0" VerticalAlignment="Center">
 
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
@@ -54,7 +54,7 @@
         </TextBlock>
 
         <PasswordBox x:Name="pwBox" Grid.Column="1" Grid.Row="5" FontSize="18" Style="{StaticResource PB}"/>
-        <TextBlock Name="Watermark" Grid.Column="1" Grid.Row="5" IsHitTestVisible="False" FontSize="18" Foreground="Gray" Text="Пароль" Margin="3,0,0,0"/>
+        <TextBlock Name="Watermark" Grid.Column="1" Grid.Row="5" IsHitTestVisible="False" FontSize="18" Foreground="Gray" VerticalAlignment="Center" Text="Пароль" Margin="3,0,0,0"/>
 
         <TextBlock Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Введены некорректные данные" FontSize="13" Foreground="#FFDC0A0A" Visibility="{Binding IsWarningVisible, Converter={StaticResource BoolToVisibility}}"/>
  

@@ -120,7 +120,8 @@ namespace STS.ViewModels
                        {
                            if (user == null)
                            {
-                               ApplicantMainWindow amw = new ApplicantMainWindow();
+                               User user1 = new User(); 
+                               ApplicantMainWindow amw = new ApplicantMainWindow(user1);
 
                               // _user.Role = true; //СДЕЛАЙ ПРИВЯЗКУ РОЛИ
                               if (Role == "Работодатель")

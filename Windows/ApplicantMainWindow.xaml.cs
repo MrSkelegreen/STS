@@ -1,5 +1,8 @@
-﻿using System;
+﻿using STS.DAL.Entities;
+using STS.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +22,10 @@ namespace STS.Windows
     /// </summary>
     public partial class ApplicantMainWindow : Window
     {
-        public ApplicantMainWindow()
+        public ApplicantMainWindow(User user)
         {
             InitializeComponent();
+            this.DataContext = new AMWvm(user);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -37,5 +41,9 @@ namespace STS.Windows
             }
         }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

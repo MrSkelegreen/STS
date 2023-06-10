@@ -81,24 +81,24 @@
 
         <TextBlock  Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Регистрация" FontSize="40"/>
 
-        <TextBox x:Name="emailBox" Grid.Column="1" Grid.Row="2" FontSize="18" Text="{Binding User.Email}"/>
-        <TextBlock Grid.Column="1" Grid.Row="2" IsHitTestVisible="False" FontSize="18" Foreground="Gray" Text="Email" Margin="3,0,0,0" Style="{StaticResource EmailWaterMark}"/>
+        <TextBox x:Name="emailBox" Grid.Column="1" Grid.Row="2" VerticalContentAlignment="Center" FontSize="18" Text="{Binding User.Email}"/>
+        <TextBlock Grid.Column="1" Grid.Row="2" IsHitTestVisible="False" VerticalAlignment="Center" FontSize="18" Foreground="Gray" Text="Email" Margin="3,0,0,0" Style="{StaticResource EmailWaterMark}"/>
 
-        <PasswordBox x:Name="pwBox" Grid.Column="1" Grid.Row="4" FontSize="18" Style="{StaticResource PB}"/>
-        <TextBlock Name="Watermark" Grid.Column="1" Grid.Row="4" IsHitTestVisible="False" FontSize="18" Foreground="Gray" Text="Пароль" Margin="3,0,0,0"/>
+        <PasswordBox x:Name="pwBox" Grid.Column="1" Grid.Row="4" FontSize="18" Style="{StaticResource PB}" VerticalContentAlignment="Center" />
+        <TextBlock Name="Watermark" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" IsHitTestVisible="False" FontSize="18" Foreground="Gray" Text="Пароль" Margin="3,0,0,0"/>
 
-        <TextBox x:Name="fName" Grid.Column="1" Grid.Row="6" FontSize="18" Text="{Binding User.Firstname}"/>
-        <TextBlock Grid.Column="1" Grid.Row="6" IsHitTestVisible="False" FontSize="18" Foreground="Gray" Text="Имя" Margin="3,0,0,0" Style="{StaticResource fNamelWaterMark}"/>
+        <TextBox x:Name="fName" Grid.Column="1" Grid.Row="6" FontSize="18" Text="{Binding User.Firstname}" VerticalContentAlignment="Center" />
+        <TextBlock Grid.Column="1" Grid.Row="6" IsHitTestVisible="False" FontSize="18" Foreground="Gray" VerticalAlignment="Center" Text="Имя" Margin="3,0,0,0" Style="{StaticResource fNamelWaterMark}"/>
 
-        <TextBox x:Name="lName" Grid.Column="1" Grid.Row="8" FontSize="18" Text="{Binding User.Lastname}"/>
-        <TextBlock Grid.Column="1" Grid.Row="8" IsHitTestVisible="False" FontSize="18" Foreground="Gray" Text="Фамилия" Margin="3,0,0,0" Style="{StaticResource lNamelWaterMark}"/>
+        <TextBox x:Name="lName" Grid.Column="1" Grid.Row="8" FontSize="18" Text="{Binding User.Lastname}" VerticalContentAlignment="Center" />
+        <TextBlock Grid.Column="1" Grid.Row="8" IsHitTestVisible="False" FontSize="18" Foreground="Gray" VerticalAlignment="Center" Text="Фамилия" Margin="3,0,0,0" Style="{StaticResource lNamelWaterMark}"/>
 
-        <TextBox x:Name="PatronBox" Grid.Column="1" Grid.Row="10" FontSize="18" Text="{Binding User.Patronymic}"/>
-        <TextBlock Grid.Column="1" Grid.Row="10" IsHitTestVisible="False" FontSize="18" Foreground="Gray" Text="Отчество (не обязательно)"  Style="{StaticResource PatronBoxWaterMark}" Margin="3,0,0,0"/>
+        <TextBox x:Name="PatronBox" Grid.Column="1" Grid.Row="10" FontSize="18" Text="{Binding User.Patronymic}" VerticalContentAlignment="Center" />
+        <TextBlock Grid.Column="1" Grid.Row="10" IsHitTestVisible="False" FontSize="18" Foreground="Gray" VerticalAlignment="Center" Text="Отчество (не обязательно)"  Style="{StaticResource PatronBoxWaterMark}" Margin="3,0,0,0"/>
 
         <DockPanel Name="RoleSelecter" Grid.Column="1" Grid.Row="12">
             <TextBlock Text="Кто вы?" VerticalAlignment="Center"/>
-            <ComboBox Name="roleBox"  Margin="15,0,0,0" VerticalContentAlignment="Center" ItemsSource="{Binding Path=Roles}" SelectedItem="{Binding Path=Role}"/> <!--подпишись на обновление этого контрола-->
+            <ComboBox Name="roleBox"  Margin="15,0,0,0" VerticalContentAlignment="Center" ItemsSource="{Binding Path=Roles}" SelectedItem="{Binding Path=Role}"/> 
         </DockPanel>
 
         <TextBlock  Grid.Row="13" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding WarningText}" FontSize="13" Foreground="#FFDC0A0A" Visibility="{Binding IsWarningVisible, Converter={StaticResource BoolToVisibility}}"/>

@@ -34,6 +34,17 @@ namespace STS.ViewModels
             }
         }
 
+        private string _password;
+        public string Password
+        {
+            get { return _password; }
+            set
+            {
+                _password = value;
+                OnPropertyChanged("Password");
+            }
+        }
+
         public AuthVM()
         {
             _isWarningVisible=false;
@@ -41,12 +52,11 @@ namespace STS.ViewModels
             STSContext context = new STSContext();
             _user = new User();
 
-            _user.Email = string.Empty;
-            _user.pw = string.Empty;
+            _user.Email = "1";
+            _password = "1";
+            //_user.pw = string.Empty;
 
-            /*var user = context.Users.FirstOrDefault(x => x.Id == 2);
-
-            User = user;*/
+            
         }
 
         //Вход
@@ -68,8 +78,10 @@ namespace STS.ViewModels
 
                         if (user != null)
                         {
-                            ApplicantMainWindow amw = new ApplicantMainWindow();
+                            ApplicantMainWindow amw = new ApplicantMainWindow(user);
+                            //amw.DataContext = this;
                             amw.Show();
+                            amw.DataContext = new AMWvm(user);
                             foreach (Window item in App.Current.Windows)
                             {
                                 if (item.GetType() == typeof(AuthWindow))
