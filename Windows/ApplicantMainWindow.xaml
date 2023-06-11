@@ -84,7 +84,7 @@
           
         <!--Тесты-->
         <StackPanel Grid.Column="2" Grid.ColumnSpan="6" Grid.Row="4" Background="#FFDCCFCF" >
-            <ListBox Name="ListBox" Height="620" ItemsSource="{Binding Tests}">
+            <ListBox Name="ListBox" Height="620">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>

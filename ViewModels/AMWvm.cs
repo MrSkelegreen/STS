@@ -41,9 +41,7 @@ namespace STS.ViewModels
         public AMWvm(User user)
         {
             Tests = new ObservableCollection<Test>() {};
-
-            
-
+           
             User = user;
 
             GetTests();

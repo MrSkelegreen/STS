@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace STS.Windows
 {
@@ -26,6 +27,31 @@ namespace STS.Windows
         {
             InitializeComponent();
             this.DataContext = new AMWvm(user);
+
+            string image = "https://papik.pro/uploads/posts/2022-01/1642329969_39-papik-pro-p-testirovanie-klipart-42.png";
+
+            ObservableCollection<Test> Tests = new ObservableCollection<Test>() 
+            { 
+                new Test() {Title = "Тест на знание вин", 
+                                Description = "Тест насколько хорошо вы разбираетесь в сортах вин. Рекомендуется для прохождения сомелье.",
+                                Categoryid = 1, Creationdate = new DateOnly(2023,06,11), Rating = 0, Author = 1,},
+                new Test() {Title = "Тест на знание вин",
+                                Description = "Тест насколько хорошо вы разбираетесь в сортах вин. Рекомендуется для прохождения сомелье.",
+                                Categoryid = 1, Creationdate = new DateOnly(2023,06,11), Rating = 0, Author = 1,},
+                new Test() {Title = "Тест на знание вин",
+                                Description = "Тест насколько хорошо вы разбираетесь в сортах вин. Рекомендуется для прохождения сомелье.",
+                                Categoryid = 1, Creationdate = new DateOnly(2023,06,11), Rating = 0, Author = 1,},
+                new Test() {Title = "Тест на знание вин",
+                                Description = "Тест насколько хорошо вы разбираетесь в сортах вин. Рекомендуется для прохождения сомелье.",
+                                Categoryid = 1, Creationdate = new DateOnly(2023,06,11), Rating = 0, Author = 1,},
+                new Test() {Title = "Тест на знание вин",
+                                Description = "Тест насколько хорошо вы разбираетесь в сортах вин. Рекомендуется для прохождения сомелье.",
+                                Categoryid = 1, Creationdate = new DateOnly(2023,06,11), Rating = 0, Author = 1,}
+            };
+
+            ListBox.ItemsSource = Tests;
+            /*Test test = new Test();
+            test.Image = "https://papik.pro/uploads/posts/2022-01/1642329969_39-papik-pro-p-testirovanie-klipart-42.png";*/
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
