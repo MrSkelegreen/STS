@@ -3,6 +3,7 @@ using STS.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,9 +50,9 @@ namespace STS.Windows
                                 Categoryid = 1, Creationdate = new DateOnly(2023,06,11), Rating = 0, Author = 1,}
             };
 
-            ListBox.ItemsSource = Tests;
-            /*Test test = new Test();
-            test.Image = "https://papik.pro/uploads/posts/2022-01/1642329969_39-papik-pro-p-testirovanie-klipart-42.png";*/
+            //ListBox.ItemsSource = Tests;
+
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -71,5 +72,11 @@ namespace STS.Windows
         {
             
         }
+
+
+
     }
+
+    
+
 }

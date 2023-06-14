@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
+using System.Collections.Immutable;
+using Microsoft.EntityFrameworkCore;
 
 //Applicant Main Window View Model
 
@@ -38,13 +40,50 @@ namespace STS.ViewModels
             }
         }
 
+        private Uri _bookmarkUri;
+        public Uri BookmarkUri
+        {
+            get { return _bookmarkUri; }
+            set
+            {
+                _bookmarkUri = value;
+                OnPropertyChanged("BookmarkUri");
+            }
+        }
+
+        private int _itemTemplateFontSize;
+        public int ItemTemplateFontSize
+        {
+            get { return _itemTemplateFontSize; }
+            set
+            {
+                _itemTemplateFontSize = value;
+                OnPropertyChanged("ItemTemplateFontSize");
+            }
+        }
+
+        private IEnumerable<Test> _sortedTests;
+        public IEnumerable<Test> SortedTests
+        {
+            get { return _sortedTests; }
+            set
+            {
+                _sortedTests = value;
+                OnPropertyChanged("SortedTests");
+            }
+        }
+
         public AMWvm(User user)
         {
             Tests = new ObservableCollection<Test>() {};
+
+            //SortedTests = new IEnumerable<Test>() { };
            
             User = user;
 
             GetTests();
+
+            _itemTemplateFontSize = 30;
         }
 
         public void GetTests()
@@ -67,12 +106,24 @@ namespace STS.ViewModels
 
                         STSContext context = new STSContext();
 
-                        tests = context.Tests.ToList();
+                        tests = context.Tests.Include(t => t.AuthorNavigation).OrderBy(t => t.Id).ToList();
+
+                        //tests = context.Tests.OrderBy(t => t.Id).ToList();
+
+                        
+
+                        //Test[] numTests = tests.ToArray();
 
                         foreach (Test test in tests)
                         {
-                            Tests.Add(test);
+                            Tests.Add(test);                         
                         }
+
+                        //Tests.OrderBy(t => t.Id);
+
+                       // IEnumerable<Test> sortedTests = Tests.OrderBy(t => t.Id);
+
+                        
 
                     }));
             }

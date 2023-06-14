@@ -6,6 +6,9 @@
     <Application.Resources>
         <ResourceDictionary>
             <BitmapImage x:Key="Profile" UriSource="/Images/profileIcon.png"/>
+            <BitmapImage x:Key="FullStar" UriSource="/Images/fullStarImage.png"/>
+            <BitmapImage x:Key="Bookmark" UriSource="/Images/bookMarkImage.png"/>
+            <BitmapImage x:Key="Comment" UriSource="/Images/commentIcon.png"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

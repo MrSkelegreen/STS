@@ -82,9 +82,7 @@ namespace STS.ViewModels
             _user = new User();
 
             _user.Email = string.Empty;
-            _user.pw = string.Empty;
-
-            //_role = false;
+            _user.pw = string.Empty;           
 
             Roles = new ObservableCollection<string>()
             {
@@ -122,8 +120,7 @@ namespace STS.ViewModels
                            {
                                User user1 = new User(); 
                                ApplicantMainWindow amw = new ApplicantMainWindow(user1);
-
-                              // _user.Role = true; //СДЕЛАЙ ПРИВЯЗКУ РОЛИ
+                            
                               if (Role == "Работодатель")
                                {
                                    _user.Role = true;

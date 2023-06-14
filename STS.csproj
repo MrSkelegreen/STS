@@ -8,7 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\bookMarkImage.png" />
+    <None Remove="Images\commentIcon.png" />
+    <None Remove="Images\fullStarImage.png" />
     <None Remove="Images\profileIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\fullStarImage.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +39,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\bookMarkImage.png" />
+    <Resource Include="Images\commentIcon.png" />
     <Resource Include="Images\profileIcon.png" />
   </ItemGroup>
 
