@@ -66,9 +66,9 @@
             </DockPanel>
 
             <DockPanel HorizontalAlignment="Right" Grid.Column="3">
-                <Button Height="40" Width="40" Content="-" Background="#FFE61D1D" Click="Button_Click" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                <Button Height="40" Width="40" Content="0" Background="#FFE61D1D" Click="Button_Click" VerticalAlignment="Top"/>
-                <Button Height="40" Width="40" Content="X" Background="#FFE61D1D" Click="Button_Click" VerticalAlignment="Top"/>
+                <Button Height="40" Width="40" Content="-" Background="#FFE61D1D" Click="MinimizeWindow" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                <Button Height="40" Width="40" Content="0" Background="#FFE61D1D" Click="MaximizeWindow" VerticalAlignment="Top"/>
+                <Button Height="40" Width="40" Content="X" Background="#FFE61D1D" Click="CloseWindow" VerticalAlignment="Top"/>
             </DockPanel>
         </Grid>
 
@@ -90,7 +90,7 @@
 
             <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <TextBox Width="200" Height="50" HorizontalAlignment="Right" FontSize="25" VerticalContentAlignment="Center"/>
-                <Button Width="100" Height="50" HorizontalAlignment="Right" Content="Поиск" FontSize="30" Background="#FF5599E6" Foreground="White" Click="Button_Click_1"/>
+                <Button Width="100" Height="50" HorizontalAlignment="Right" Content="Поиск" FontSize="30" Background="#FF5599E6" Foreground="White"/>
             </StackPanel>
         </Grid>
           
@@ -116,9 +116,7 @@
                             <TextBlock Text="{Binding Title}" Grid.Column="0" Grid.ColumnSpan="2" FontSize="35"/>
                             <TextBlock Grid.Row="1" Text="{Binding Description}" Grid.Column="1" FontSize="18" TextWrapping="Wrap" Background="White" Margin="10"/>
                             <Image Grid.Row="1" Source="{Binding Image}"/>
-                            
-                            <!--TextBlock Grid.Row="2" Text="{Binding AuthorNavigation.Firstname}" TextDecorations="Underline" Margin="10" HorizontalAlignment="Center" Style="{StaticResource ListBoxItemFontSize}"-->
-                             
+
                             <TextBlock Grid.Row="2" TextDecorations="Underline" Margin="10" HorizontalAlignment="Center" Style="{StaticResource ListBoxItemFontSize}">
                                 <TextBlock.Text>
                                     <MultiBinding Converter="{StaticResource NameConverter}">
@@ -131,11 +129,25 @@
                             
                             <DockPanel Grid.Column="1" Grid.Row="2" Width="700" HorizontalAlignment="Left">
                                 <TextBlock Text="{Binding Category.Title}" TextDecorations="Underline" Margin="10" Style="{StaticResource ListBoxItemFontSize}"/>
-                                <TextBlock Text="{Binding Difficulty}" Margin="10" Style="{StaticResource ListBoxItemFontSize}"/>
-                                <TextBlock Text="{Binding Creationdate}" Margin="10" Style="{StaticResource ListBoxItemFontSize}"/>
+
+                                <TextBlock Margin="10" Style="{StaticResource ListBoxItemFontSize}">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Сложность: {0}">
+                                            <Binding Path="Difficulty"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+
+                                <TextBlock Margin="10" Style="{StaticResource ListBoxItemFontSize}">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Дата: {0:dd.MM.yyyy}">
+                                            <Binding Path="Creationdate"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
 
                                 <DockPanel Margin="10">
-                                    <TextBlock Text="2" Style="{StaticResource ListBoxItemFontSize}"/> <!--Привяжи количество комментов-->
+                                    <TextBlock Text="{Binding TestComments.Count}" Style="{StaticResource ListBoxItemFontSize}"/> <!--Привяжи количество комментов-->
                                     <Image Source="{StaticResource Comment}" Margin="5,0,0,0" Width="19" Height="19" VerticalAlignment="Center"/>
                                 </DockPanel>
 

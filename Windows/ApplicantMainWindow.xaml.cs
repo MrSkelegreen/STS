@@ -29,7 +29,7 @@ namespace STS.Windows
             InitializeComponent();
             this.DataContext = new AMWvm(user);
 
-            string image = "https://papik.pro/uploads/posts/2022-01/1642329969_39-papik-pro-p-testirovanie-klipart-42.png";
+            /*string image = "https://papik.pro/uploads/posts/2022-01/1642329969_39-papik-pro-p-testirovanie-klipart-42.png";
 
             ObservableCollection<Test> Tests = new ObservableCollection<Test>() 
             { 
@@ -48,14 +48,24 @@ namespace STS.Windows
                 new Test() {Title = "Тест на знание вин",
                                 Description = "Тест насколько хорошо вы разбираетесь в сортах вин. Рекомендуется для прохождения сомелье.",
                                 Categoryid = 1, Creationdate = new DateOnly(2023,06,11), Rating = 0, Author = 1,}
-            };
+            };*/
 
             //ListBox.ItemsSource = Tests;
 
             
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void MinimizeWindow(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;   
+        }
+
+        private void MaximizeWindow(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Maximized;
+        }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
@@ -68,10 +78,7 @@ namespace STS.Windows
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            
-        }
+        
 
 
 

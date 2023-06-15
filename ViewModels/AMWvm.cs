@@ -108,22 +108,18 @@ namespace STS.ViewModels
 
                         tests = context.Tests.Include(t => t.AuthorNavigation).OrderBy(t => t.Id).ToList();
 
-                        //tests = context.Tests.OrderBy(t => t.Id).ToList();
-
-                        
-
-                        //Test[] numTests = tests.ToArray();
+                        int commentsCount = 0;
 
                         foreach (Test test in tests)
                         {
-                            Tests.Add(test);                         
+                            Tests.Add(test);
+
+                            
                         }
+                        var comments = context.Tests.Include(t => t.TestComments).ToList();
 
-                        //Tests.OrderBy(t => t.Id);
 
-                       // IEnumerable<Test> sortedTests = Tests.OrderBy(t => t.Id);
 
-                        
 
                     }));
             }
