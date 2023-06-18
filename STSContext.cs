@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using Microsoft.EntityFrameworkCore;
+using STS.DAL.Entities;
 
-namespace STS.DAL.Entities;
+namespace STS;
 
 public partial class STSContext : DbContext
 {
@@ -16,8 +16,6 @@ public partial class STSContext : DbContext
     {
     }
 
-   // public virtual DbSet<Applicant> Applicants { get; set; }
-
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Comment> Comments { get; set; }
@@ -25,8 +23,6 @@ public partial class STSContext : DbContext
     public virtual DbSet<Commentanswer> Commentanswers { get; set; }
 
     public virtual DbSet<Company> Companies { get; set; }
-
-    //public virtual DbSet<Company1> Companies1 { get; set; }
 
     public virtual DbSet<CtAnswerComment> CtAnswerComments { get; set; }
 
@@ -36,21 +32,13 @@ public partial class STSContext : DbContext
 
     public virtual DbSet<QuestionComment> QuestionComments { get; set; }
 
-    public virtual DbSet<QuestionQuestionanswer> QuestionQuestionanswers { get; set; }
-
-    public virtual DbSet<Questiontype> Questiontypes { get; set; }
-
-    public virtual DbSet<Qustionanswer> Qustionanswers { get; set; }
+   // public virtual DbSet<Questiontype> Questiontypes { get; set; }
 
     public virtual DbSet<Result> Results { get; set; }
 
     public virtual DbSet<Test> Tests { get; set; }
 
-   // public virtual DbSet<Test1> Tests1 { get; set; }
-
     public virtual DbSet<TestComment> TestComments { get; set; }
-
-    public virtual DbSet<TestQuestion> TestQuestions { get; set; }
 
     public virtual DbSet<TestTestgroup> TestTestgroups { get; set; }
 
@@ -59,24 +47,11 @@ public partial class STSContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseNpgsql("Host=localhost;port=5432;Username=postgres;Password=postgres;Database=STS");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        /*modelBuilder.Entity<Applicant>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("applicants", "STS");
-
-            entity.Property(e => e.Email)
-                .HasMaxLength(100)
-                .HasColumnName("email");
-            entity.Property(e => e.ОСебе).HasColumnName("О_себе");
-            entity.Property(e => e.Фио).HasColumnName("ФИО");
-        });*/
-
+    {     
         modelBuilder.Entity<Category>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("category_pk");
@@ -145,19 +120,6 @@ public partial class STSContext : DbContext
                 .HasConstraintName("company_fk");
         });
 
-       /* modelBuilder.Entity<Company1>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("companies", "STS");
-
-            entity.Property(e => e.Email)
-                .HasMaxLength(100)
-                .HasColumnName("email");
-            entity.Property(e => e.ДатаСоздания).HasColumnName("Дата_создания");
-            entity.Property(e => e.Название).HasMaxLength(100);
-        });*/
-
         modelBuilder.Entity<CtAnswerComment>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("ct_answer_comment_pk");
@@ -207,21 +169,29 @@ public partial class STSContext : DbContext
             entity.ToTable("question", "STS");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Answer)
+                .HasMaxLength(100)
+                .HasColumnName("answer");
             entity.Property(e => e.Difficulty)
                 .HasMaxLength(100)
                 .HasDefaultValueSql("'Средний'::character varying")
                 .HasColumnName("difficulty");
             entity.Property(e => e.Image).HasColumnName("image");
+            entity.Property(e => e.Testid).HasColumnName("testid");
             entity.Property(e => e.Topic)
                 .HasMaxLength(200)
                 .HasDefaultValueSql("'Без темы'::character varying")
                 .HasColumnName("topic");
-            entity.Property(e => e.Typeid).HasColumnName("typeid");
+            //entity.Property(e => e.Typeid).HasColumnName("typeid");
 
-            entity.HasOne(d => d.Type).WithMany(p => p.Questions)
+            entity.HasOne(d => d.Test).WithMany(p => p.Questions)
+                .HasForeignKey(d => d.Testid)
+                .HasConstraintName("question_test");
+
+            /*entity.HasOne(d => d.Typeid).WithMany(p => p.Questions)
                 .HasForeignKey(d => d.Typeid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("question_fk");
+                .HasConstraintName("question_fk");*/
         });
 
         modelBuilder.Entity<QuestionComment>(entity =>
@@ -245,28 +215,7 @@ public partial class STSContext : DbContext
                 .HasConstraintName("question_comment_fk_1");
         });
 
-        modelBuilder.Entity<QuestionQuestionanswer>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("question_questionanswer_pk");
-
-            entity.ToTable("question_questionanswer", "STS");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Questionanswerid).HasColumnName("questionanswerid");
-            entity.Property(e => e.Questionid).HasColumnName("questionid");
-
-            entity.HasOne(d => d.Questionanswer).WithMany(p => p.QuestionQuestionanswers)
-                .HasForeignKey(d => d.Questionanswerid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("question_questionanswer_fk");
-
-            entity.HasOne(d => d.Question).WithMany(p => p.QuestionQuestionanswers)
-                .HasForeignKey(d => d.Questionid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("question_questionanswer_fk_1");
-        });
-
-        modelBuilder.Entity<Questiontype>(entity =>
+        /*modelBuilder.Entity<Questiontype>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("questiontype_pk");
 
@@ -275,17 +224,7 @@ public partial class STSContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Title).HasColumnName("title");
-        });
-
-        modelBuilder.Entity<Qustionanswer>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("qustionanswer_pk");
-
-            entity.ToTable("qustionanswer", "STS");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Istrue).HasColumnName("istrue");
-        });
+        });*/
 
         modelBuilder.Entity<Result>(entity =>
         {
@@ -341,19 +280,7 @@ public partial class STSContext : DbContext
                 .HasForeignKey(d => d.Categoryid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("test_category");
-        });
-
-       /* modelBuilder.Entity<Test1>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("tests", "STS");
-
-            entity.Property(e => e.ДатаСоздания).HasColumnName("Дата_создания");
-            entity.Property(e => e.Категория).HasMaxLength(100);
-            entity.Property(e => e.Название).HasMaxLength(100);
-            entity.Property(e => e.Сложность).HasColumnType("character varying");
-        });*/
+        });     
 
         modelBuilder.Entity<TestComment>(entity =>
         {
@@ -374,27 +301,6 @@ public partial class STSContext : DbContext
                 .HasForeignKey(d => d.Testid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("test_comment_fk");
-        });
-
-        modelBuilder.Entity<TestQuestion>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("test_question_pk");
-
-            entity.ToTable("test_question", "STS");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Questionid).HasColumnName("questionid");
-            entity.Property(e => e.Testid).HasColumnName("testid");
-
-            entity.HasOne(d => d.Question).WithMany(p => p.TestQuestions)
-                .HasForeignKey(d => d.Questionid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("test_question_fk_1");
-
-            entity.HasOne(d => d.Test).WithMany(p => p.TestQuestions)
-                .HasForeignKey(d => d.Testid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("test_question_fk");
         });
 
         modelBuilder.Entity<TestTestgroup>(entity =>
@@ -456,14 +362,13 @@ public partial class STSContext : DbContext
             entity.Property(e => e.Patronymic)
                 .HasMaxLength(100)
                 .HasColumnName("patronymic");
+            entity.Property(e => e.pw)
+                .HasMaxLength(100)
+                .HasComment("password")
+                .HasColumnName("pw");
             entity.Property(e => e.Role)
                 .HasComment("false - applicant, true - employer")
                 .HasColumnName("role");
-
-            entity.Property(e => e.pw)
-                .HasMaxLength(100)
-                .HasColumnName("pw")
-                .HasComment("password");
         });
 
         OnModelCreatingPartial(modelBuilder);

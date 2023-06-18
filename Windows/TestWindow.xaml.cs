@@ -24,6 +24,8 @@ namespace STS.Windows
             //this.DataContext = new TestVM(test);
 
             //this.TestTitle.Text = test.Title;   
+
+            
         }
 
         private void MinimizeWindow(object sender, RoutedEventArgs e)

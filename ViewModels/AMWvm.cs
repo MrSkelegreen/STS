@@ -147,6 +147,8 @@ namespace STS.ViewModels
 
                         STSContext context = new STSContext();
 
+                        var qs = context.Tests.Include(t => t.Questions).ToList();
+
                         TestWindow testWindow = new TestWindow(SelectedTest);
                         testWindow.DataContext = new TestVM(SelectedTest);
                         testWindow.Show();

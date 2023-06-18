@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:STS.Windows"
+        xmlns:local="clr-namespace:STS.Windows" xmlns:viewmodels="clr-namespace:STS.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:TestVM}"
         mc:Ignorable="d"
         Title="TestWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -24,11 +24,11 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="450"/>
             <RowDefinition Height="39*"/>
             <RowDefinition Height="621*"/>
-            <RowDefinition Height="37*"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="102*"/>
         </Grid.RowDefinitions>
 
@@ -114,7 +114,7 @@
                     </TextBlock.Text>
                 </TextBlock>
 
-                <TextBlock Margin="0,10,0,0" Style="{StaticResource TestInfoTextSize}" DockPanel.Dock="Left">
+                <TextBlock Margin="0,10,0,0" Style="{StaticResource TestInfoTextSize}">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}Дата: {0:dd.MM.yyyy}">
                             <Binding Path="SelectedTest.Creationdate"/>
@@ -122,8 +122,13 @@
                     </TextBlock.Text>
                 </TextBlock>
 
-
-                <TextBlock Style="{StaticResource TestInfoTextSize}"  Margin="0,10,0,0" Text="Вопросов: 14" /> <!--Привяжи количество тестов-->
+                <TextBlock Margin="0,10,0,0" Style="{StaticResource TestInfoTextSize}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}Вопросов: {0}">
+                            <Binding Path="Questions.Count"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
 
                 <DockPanel  Margin="0,10,0,0"  HorizontalAlignment="Left"> <!--Привяжи рейтинг-->
                     <TextBlock Text="5" Style="{StaticResource TestInfoTextSize}"/>
@@ -137,10 +142,46 @@
             </StackPanel>
         </Grid>
         
-        <!--Тело теста-->
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Background="Beige" Margin="0,28,0,0" Grid.RowSpan="2">
+        <!--Вопросы-->
+        <Grid Grid.Row="3" Grid.ColumnSpan="3" Background="Beige" Margin="0,28,0,0" Grid.RowSpan="2">
+            <ListBox Name="LBox" ItemsSource="{Binding Questions}" AlternationCount="{Binding Questions.Count}">
 
-        </StackPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Width" Value="1800"></Setter>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Background="LightGray" HorizontalAlignment="Center" Width="1800">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Name="QuestionId" FontSize="30" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplatedParent.(ItemsControl.AlternationIndex), StringFormat={}{0}.}" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+
+                            <TextBlock Grid.Column="1" Text="{Binding Content}" FontSize="30" TextWrapping="Wrap"/>
+
+                            <DockPanel Grid.Column="1" Grid.Row="1" Margin="0,0,0,10" Width="500" HorizontalAlignment="Left">
+                                <TextBlock Text="Ответ:" FontSize="30"/>
+                                <TextBox FontSize="30" Margin="10,0,0,0"/>
+                            </DockPanel>
+                            
+
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
 
         <!--Подвал-->
         <DockPanel Grid.ColumnSpan="3" Grid.Row="6" Background="#FFD8D6D6">
