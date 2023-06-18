@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STS.Windows"
-        xmlns:c="clr-namespace:STS"
+        xmlns:c="clr-namespace:STS" xmlns:ie="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core"
         mc:Ignorable="d"
         Title="ApplicantMainWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -96,7 +96,7 @@
           
         <!--Тесты-->
         <StackPanel Grid.Column="2" Grid.ColumnSpan="6" Grid.Row="4" Background="#FFDCCFCF" >
-            <ListBox Name="ListBox" Height="620" ItemsSource="{Binding Tests}">
+            <ListBox Name="LBox" Height="620" ItemsSource="{Binding Tests}" SelectedItem="{Binding SelectedTest}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -110,6 +110,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition Height="200"/>
+                                <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
 
@@ -126,11 +127,11 @@
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
-                            
-                            <DockPanel Grid.Column="1" Grid.Row="2" Width="700" HorizontalAlignment="Left">
-                                <TextBlock Text="{Binding Category.Title}" TextDecorations="Underline" Margin="10" Style="{StaticResource ListBoxItemFontSize}"/>
 
-                                <TextBlock Margin="10" Style="{StaticResource ListBoxItemFontSize}">
+                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" Text="{Binding Category.Title}" TextDecorations="Underline" Margin="10" Style="{StaticResource ListBoxItemFontSize}" TextWrapping="WrapWithOverflow"/>
+
+                            <DockPanel Grid.Column="1" Grid.Row="3" Width="520" HorizontalAlignment="Right">
+                                <TextBlock Margin="10" Style="{StaticResource ListBoxItemFontSize}" DockPanel.Dock="Left">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}Сложность: {0}">
                                             <Binding Path="Difficulty"/>
@@ -138,7 +139,7 @@
                                     </TextBlock.Text>
                                 </TextBlock>
 
-                                <TextBlock Margin="10" Style="{StaticResource ListBoxItemFontSize}">
+                                <TextBlock Margin="10" Style="{StaticResource ListBoxItemFontSize}" DockPanel.Dock="Left">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}Дата: {0:dd.MM.yyyy}">
                                             <Binding Path="Creationdate"/>
@@ -146,18 +147,18 @@
                                     </TextBlock.Text>
                                 </TextBlock>
 
-                                <DockPanel Margin="10">
-                                    <TextBlock Text="{Binding TestComments.Count}" Style="{StaticResource ListBoxItemFontSize}"/> <!--Привяжи количество комментов-->
+                                <DockPanel Margin="10" DockPanel.Dock="Left">
+                                    <TextBlock Text="{Binding TestComments.Count}" Style="{StaticResource ListBoxItemFontSize}"/>
                                     <Image Source="{StaticResource Comment}" Margin="5,0,0,0" Width="19" Height="19" VerticalAlignment="Center"/>
                                 </DockPanel>
 
-                                <DockPanel Margin="10" Width="100">
+                                <DockPanel Margin="10" HorizontalAlignment="Right" DockPanel.Dock="Right">
                                     <TextBlock Text="{Binding Rating}" Style="{StaticResource ListBoxItemFontSize}"/>
-                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center"/>
-                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center"/>
-                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center"/>
-                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center" />
+                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center" />
+                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center" />
+                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center" />
                                 </DockPanel>
                             </DockPanel>
 

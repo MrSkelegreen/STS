@@ -20,33 +20,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Тест на знание вин" Grid.Column="0" Grid.ColumnSpan="2" FontSize="35"/>
-        <TextBlock Grid.Row="1" Text="Тест насколько хорошо вы разбираетесь в сортах вин. Рекомендуется для прохождения сомелье." Grid.Column="1" FontSize="18" TextWrapping="Wrap" Background="White" Margin="10"/>
-        <Image Grid.Row="1" Source="https://papik.pro/uploads/posts/2022-01/1642329969_39-papik-pro-p-testirovanie-klipart-42.png"/>
-
-        <TextBlock Grid.Row="2" Text="Автор: А.Н. Степанов" TextDecorations="Underline" Margin="10" HorizontalAlignment="Center" Style="{StaticResource ListBoxItemFontSize}"/>
-
-        <DockPanel Grid.Column="1" Grid.Row="2">
-            <TextBlock Text="Категория: Рестораны" TextDecorations="Underline" Margin="10" Style="{StaticResource ListBoxItemFontSize}"/>
-            <TextBlock Text="Сложность: 3" Margin="10" Style="{StaticResource ListBoxItemFontSize}"/>
-            <TextBlock Text="Дата: 01.05.2023" Margin="10" Style="{StaticResource ListBoxItemFontSize}"/>
-
-            <DockPanel Margin="10">
-                <TextBlock Text="2" Style="{StaticResource ListBoxItemFontSize}"/>
-                <Image Source="{StaticResource Comment}" Margin="5,0,0,3" Width="17" Height="17"/>
-            </DockPanel>
-
-            <DockPanel Margin="10">
-                <TextBlock Text="8.5" Style="{StaticResource ListBoxItemFontSize}"/>
-                <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="1,0,0,7"/>
-                <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,7"/>
-                <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,7"/>
-                <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,7"/>
-                <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,7"/>
-            </DockPanel>
-        </DockPanel>
-
-        <Image Source="{StaticResource Bookmark}" Grid.Column="4" Margin="5" HorizontalAlignment="Right"/>
-
+        
     </Grid>
 </Window>

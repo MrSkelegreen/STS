@@ -18,6 +18,20 @@ namespace STS.ViewModels
 {
     class AMWvm : BaseViewModel
     {
+
+        private Test _selectedTest;
+        public Test SelectedTest
+        {
+            get { return _selectedTest; }
+            set 
+            { 
+                _selectedTest = value;
+                OnPropertyChanged("SelectedTest");
+
+                OpenTestCommand.Execute(_selectedTest);
+            }
+        }
+
         private ObservableCollection<Test> _tests;
         public ObservableCollection<Test> Tests
         {
@@ -76,8 +90,6 @@ namespace STS.ViewModels
         public AMWvm(User user)
         {
             Tests = new ObservableCollection<Test>() {};
-
-            //SortedTests = new IEnumerable<Test>() { };
            
             User = user;
 
@@ -112,12 +124,10 @@ namespace STS.ViewModels
 
                         foreach (Test test in tests)
                         {
-                            Tests.Add(test);
-
-                            
+                            Tests.Add(test);                         
                         }
                         var comments = context.Tests.Include(t => t.TestComments).ToList();
-
+                        var categories = context.Tests.Include(t => t.Category).ToList();
 
 
 
@@ -125,6 +135,61 @@ namespace STS.ViewModels
             }
         }
 
+        private RelayCommand _openTestCommand;
+
+        public RelayCommand OpenTestCommand
+        {
+            get
+            {
+                return _openTestCommand ??
+                    (_openTestCommand = new RelayCommand(t =>
+                    {
+
+                        STSContext context = new STSContext();
+
+                        TestWindow testWindow = new TestWindow(SelectedTest);
+                        testWindow.DataContext = new TestVM(SelectedTest);
+                        testWindow.Show();
+                        
+                        foreach (Window item in App.Current.Windows)
+                        {
+                            if (item.GetType() == typeof(ApplicantMainWindow))
+                            {
+                                item.Close();
+                            }
+                        }
+
+                    }));
+            }
+        }
+
+        /*private RelayCommand _testSelectionChangedCommand;
+
+        public RelayCommand TestSelectionChangedCommand
+        {
+            get
+            {
+                return _testSelectionChangedCommand ??
+                    (_testSelectionChangedCommand = new RelayCommand(t =>
+                    {
+
+                        STSContext context = new STSContext();
+
+                        TestWindow testWindow = new TestWindow();
+                        //amw.DataContext = this;
+                        testWindow.Show();
+                        //testWindow.DataContext = new AMWvm(user);
+                        foreach (Window item in App.Current.Windows)
+                        {
+                            if (item.GetType() == typeof(ApplicantMainWindow))
+                            {
+                                item.Close();
+                            }
+                        }
+
+                    }));
+            }
+        }*/
     }
 
 
