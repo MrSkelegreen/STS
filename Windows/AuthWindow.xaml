@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STS"
         mc:Ignorable="d"
-        Title="AuthWindow" Height="550" Width="400" MinHeight="550" MinWidth="400" MaxHeight="550" MaxWidth="400"  WindowStartupLocation="CenterScreen">
+        Title="Авторизация" Height="550" Width="400" MinHeight="550" MinWidth="400" MaxHeight="550" MaxWidth="400"  WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style x:Key="PB" TargetType="PasswordBox">

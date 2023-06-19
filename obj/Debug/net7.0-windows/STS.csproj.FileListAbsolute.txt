@@ -90,3 +90,5 @@ N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\ListboxTemplate.baml
 N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
 N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\TestWindow.g.cs
 N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\TestWindow.baml
+N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\ResultWindow.g.cs
+N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\ResultWindow.baml

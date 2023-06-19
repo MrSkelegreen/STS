@@ -36,6 +36,17 @@ namespace STS.ViewModels
             }
         }
 
+        private int _counter;
+        public int Counter
+        {
+            get { return _counter; }
+            set
+            {
+                _counter = value;
+                OnPropertyChanged("Counter");
+            }
+        }
+
         public TestVM(Test test)
         {
             SelectedTest = test;
@@ -43,6 +54,8 @@ namespace STS.ViewModels
             Questions = new ObservableCollection<Question>();
 
             LoadQuestions();
+
+            Counter = 0;
         }
 
         private RelayCommand _getQuestions;
@@ -81,5 +94,32 @@ namespace STS.ViewModels
             GetQuestions.Execute(null);
         }
 
+        private RelayCommand _checkAnswersCommand;
+
+        public RelayCommand CheckAnswersCommand
+        {
+            get
+            {
+                return _checkAnswersCommand ??
+                    (_checkAnswersCommand = new RelayCommand(c =>
+                    {
+                        STSContext context = new STSContext();
+
+                        Counter = 0;
+
+                        for(int i = 0; i < Questions.Count; i++)
+                        {
+                            if (Questions[i].UserAnswer == Questions[i].Answer)
+                            {
+                                Counter++;
+                            }
+                        }
+
+                        ResultWindow resultWindow = new ResultWindow(Counter.ToString());
+                        resultWindow.Show();
+
+                    }));
+            }
+        }
     }
 }

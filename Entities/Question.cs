@@ -1,6 +1,7 @@
 ﻿using STS.DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace STS;
 
@@ -25,5 +26,8 @@ public partial class Question
     public virtual ICollection<QuestionComment> QuestionComments { get; set; } = new List<QuestionComment>();
 
     public virtual Test? Test { get; set; }
+
+    //Добавил поле для проверки ответа
+    [NotMapped] public string? UserAnswer { get; set; }
 
 }

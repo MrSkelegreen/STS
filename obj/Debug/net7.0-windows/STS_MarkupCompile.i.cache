@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 N:\DZ\TRPO\KURSACH\Project\STS\App.xaml
-5460734103
+6-2061377043
 
-35-1594810972
+36-954380479
 2122005149740
-ListboxTemplate.xaml;Windows\ApplicantMainWindow.xaml;Windows\AuthWindow.xaml;Windows\RegWindow.xaml;Windows\TestWindow.xaml;
+ListboxTemplate.xaml;Windows\ApplicantMainWindow.xaml;Windows\AuthWindow.xaml;Windows\RegWindow.xaml;Windows\ResultWindow.xaml;Windows\TestWindow.xaml;
 
-False
+True
 
