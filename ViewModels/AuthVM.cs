@@ -78,10 +78,10 @@ namespace STS.ViewModels
 
                         if (user != null)
                         {
-                            ApplicantMainWindow amw = new ApplicantMainWindow(user);
-                            //amw.DataContext = this;
-                            amw.Show();
+                            ApplicantMainWindow amw = new ApplicantMainWindow();
                             amw.DataContext = new AMWvm(user);
+                            amw.Show();
+                            //amw.DataContext = new AMWvm(user);
                             foreach (Window item in App.Current.Windows)
                             {
                                 if (item.GetType() == typeof(AuthWindow))

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:STS.Windows" xmlns:viewmodels="clr-namespace:STS.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:TestVM}"
+        xmlns:local="clr-namespace:STS.Windows" xmlns:viewmodels="clr-namespace:STS.ViewModels" xmlns:i="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core" xmlns:x1="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic" d:DataContext="{d:DesignInstance Type=viewmodels:TestVM}"
         mc:Ignorable="d"
         Title="TestWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -46,7 +46,9 @@
             <TextBlock  Grid.ColumnSpan="3" Text="Система тестирования соискателей" VerticalAlignment="Center" FontSize="30" Margin="130,0,0,0" Height="40"/>
 
             <DockPanel Grid.Column="1">
-                <TextBlock  Text="Тесты" FontSize="60" VerticalAlignment="Center"/>
+
+                <Button Content="Тесты" FontSize="60" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenApplicantWindowCommand}"/>
+
                 <TextBlock  Text="Компании" FontSize="60" Margin="50,0,50,0" VerticalAlignment="Center"/>
                 <TextBlock  Text="Избранное" FontSize="60" VerticalAlignment="Center"/>
             </DockPanel>
@@ -178,7 +180,6 @@
         <!--Подвал-->
         <Grid Grid.Row="6" Background="#FFD8D6D6">
             <TextBlock FontSize="40" VerticalAlignment="Center" Text="{Binding User.Email}" Margin="20,0,0,0"/>
-            <TextBlock FontSize="40" Text="{Binding Counter}"/>
         </Grid>
 
     </Grid>

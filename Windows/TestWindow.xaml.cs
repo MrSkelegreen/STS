@@ -49,6 +49,11 @@ namespace STS.Windows
             {
                 this.DragMove();
             }
-        }      
+        }
+
+        private void TextBlock_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

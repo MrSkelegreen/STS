@@ -47,7 +47,18 @@ namespace STS.ViewModels
             }
         }
 
-        public TestVM(Test test)
+        private User _user;
+        public User User
+        {
+            get { return _user; }
+            set
+            {
+                _user = value;
+                OnPropertyChanged("User");
+            }
+        }
+
+        public TestVM(Test test, User user)
         {
             SelectedTest = test;
             // STSContext context = new STSContext();
@@ -56,10 +67,11 @@ namespace STS.ViewModels
             LoadQuestions();
 
             Counter = 0;
+
+            User = user;
         }
 
         private RelayCommand _getQuestions;
-
         public RelayCommand GetQuestions
         {
             get
@@ -118,6 +130,27 @@ namespace STS.ViewModels
                         ResultWindow resultWindow = new ResultWindow(Counter.ToString());
                         resultWindow.Show();
 
+                    }));
+            }
+        }
+        private RelayCommand _openApplicantWindowCommand;
+        public RelayCommand OpenApplicantWindowCommand
+        {
+            get
+            {
+                return _openApplicantWindowCommand ??
+                    (_openApplicantWindowCommand = new RelayCommand(open =>
+                    {
+                        ApplicantMainWindow amw = new ApplicantMainWindow();
+                        amw.DataContext = new AMWvm(User);
+                        amw.Show();
+                        foreach (Window item in App.Current.Windows)
+                        {
+                            if (item.GetType() == typeof(TestWindow))
+                            {
+                                item.Close();
+                            }
+                        }
                     }));
             }
         }

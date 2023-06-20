@@ -136,7 +136,6 @@ namespace STS.ViewModels
         }
 
         private RelayCommand _openTestCommand;
-
         public RelayCommand OpenTestCommand
         {
             get
@@ -150,7 +149,7 @@ namespace STS.ViewModels
                         var qs = context.Tests.Include(t => t.Questions).ToList();
 
                         TestWindow testWindow = new TestWindow(SelectedTest);
-                        testWindow.DataContext = new TestVM(SelectedTest);
+                        testWindow.DataContext = new TestVM(SelectedTest, User);
                         testWindow.Show();
                         
                         foreach (Window item in App.Current.Windows)
@@ -165,6 +164,32 @@ namespace STS.ViewModels
             }
         }
 
+        private RelayCommand _openCreateTestWindowCommand;
+        public RelayCommand OpenCreateTestWindowCommand
+        {
+            get
+            {
+                return _openCreateTestWindowCommand ??
+                    (_openCreateTestWindowCommand = new RelayCommand(o =>
+                    {
+
+                        STSContext context = new STSContext();                       
+
+                        CreateTestWindow ctw = new CreateTestWindow();
+                        ctw.DataContext = new CreateTestVM(User);
+                        ctw.Show();
+
+                        foreach (Window item in App.Current.Windows)
+                        {
+                            if (item.GetType() == typeof(ApplicantMainWindow))
+                            {
+                                item.Close();
+                            }
+                        }
+
+                    }));
+            }
+        }
         /*private RelayCommand _testSelectionChangedCommand;
 
         public RelayCommand TestSelectionChangedCommand

@@ -195,7 +195,10 @@
         <!--Подвал-->
         <DockPanel Grid.ColumnSpan="9" Grid.Row="6" Background="#FFD8D6D6">
             <TextBlock FontSize="40" VerticalAlignment="Center" Text="{Binding User.Email}" Margin="20,0,0,0"/>
+            <Button Grid.Column="6" Grid.Row="6" Width="170" Height="70" Background="#FF5599E6" Content="Создать тест" FontSize="27" Foreground="White" Command="{Binding OpenCreateTestWindowCommand}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
         </DockPanel>
+
+        
 
     </Grid>
 </Window>

@@ -19,15 +19,13 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace STS.Windows
 {
-    /// <summary>
-    /// Логика взаимодействия для ApplicantMainWindow.xaml
-    /// </summary>
+   
     public partial class ApplicantMainWindow : Window
     {
-        public ApplicantMainWindow(User user)
+        public ApplicantMainWindow()
         {
             InitializeComponent();
-            this.DataContext = new AMWvm(user);
+           // this.DataContext = new AMWvm(user);
 
             /*string image = "https://papik.pro/uploads/posts/2022-01/1642329969_39-papik-pro-p-testirovanie-klipart-42.png";
 

@@ -119,7 +119,8 @@ namespace STS.ViewModels
                            if (user == null)
                            {
                                User user1 = new User(); 
-                               ApplicantMainWindow amw = new ApplicantMainWindow(user1);
+                               ApplicantMainWindow amw = new ApplicantMainWindow();
+                               amw.DataContext = new AMWvm(user1);
                             
                               if (Role == "Работодатель")
                                {
