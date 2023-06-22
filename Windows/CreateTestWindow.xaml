@@ -13,7 +13,11 @@
                 <Setter Property="FontSize" Value="20"/>
             </Style>
             <local:NameConverter x:Key="NameConverter"/>
+
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+
         </ResourceDictionary>
+
     </Window.Resources>
 
     <Grid>
@@ -48,7 +52,7 @@
 
                 <Button Content="Тесты" FontSize="60" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenApplicantWindowCommand}"/>
 
-                <TextBlock  Text="Компании" FontSize="60" Margin="50,0,50,0" VerticalAlignment="Center"/>
+                <Button  Content="Компании" FontSize="60" Margin="50,0,50,0" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenCompaniesListWindowCommand}"/>
                 <TextBlock  Text="Избранное" FontSize="60" VerticalAlignment="Center"/>
             </DockPanel>
 
@@ -123,31 +127,17 @@
 
                 <DockPanel>
                     <TextBlock Style="{StaticResource TestInfoTextSize}"  TextWrapping="Wrap" Margin="0,10,0,0" Text="Категория:"/>
-                    <ComboBox Margin="5,10,5,0">
-                        
+                    <ComboBox Margin="5,10,5,0" ItemsSource="{Binding Categories}" DisplayMemberPath="Title" SelectedItem="{Binding SelectedCategory}">
+
                     </ComboBox>
                 </DockPanel>
-
-                <Grid>
-                    <TextBox Name="DifficultyBox" Margin="0,10,100,0" Text="{Binding DevelopingTest.Difficulty}" FontSize="20"/>
-                    <TextBlock IsHitTestVisible="False"  FontSize="20" Foreground="Gray" Text="Сложность" Margin="5,10,100,0">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Text, ElementName=DifficultyBox}" Value="">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </Grid>
-
+                                
+                <ComboBox FontSize="20"  Margin="0,10,100,0" ItemsSource="{Binding Difficulties}" SelectedItem="{Binding SelectedDifficulty}"/>
+              
                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TestInfoTextSize}">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}Дата: {0:dd.MM.yyyy}">
-                            <Binding Path="CurrentDate"/>
+                            <Binding Path="CurrentDate"/> 
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
@@ -164,7 +154,7 @@
 
         <!--Вопросы-->
         <Grid Grid.Row="3" Grid.ColumnSpan="3" Background="Beige" Margin="0,28,0,0" Grid.RowSpan="2">
-            <ListBox Name="LBox" ItemsSource="{Binding Questions}" AlternationCount="{Binding Questions.Count}">
+            <ListBox Name="LBox" ItemsSource="{Binding Questions}" AlternationCount="{Binding Questions.Count}" SelectedItem="{Binding SelectedQuestion}" VirtualizingPanel.ScrollUnit="Pixel">
 
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
@@ -187,7 +177,7 @@
                                 <RowDefinition Height="50"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Name="QuestionId" FontSize="30" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplatedParent.(ItemsControl.AlternationIndex), StringFormat={}{0}.}" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                            <TextBlock Name="QuestionId" FontSize="30" Text="{Binding LocalId}" HorizontalAlignment="Left" Margin="10,0,0,0"/>
 
                             <TextBox Grid.Column="1" Text="{Binding Content}" FontSize="30" TextWrapping="Wrap" Margin="0,10,0,0"/>
 
@@ -196,7 +186,6 @@
                                 <TextBox FontSize="25" Text="{Binding Answer}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="5,0,0,0"/>
                             </DockPanel>
 
-
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -204,15 +193,16 @@
         </Grid>
 
 
-        <Button Grid.Row="5"  Width="50" Height="50" Background="#FF5599E6" Foreground="White" Content="+" FontSize="30"  VerticalAlignment="Center" Command="{Binding AddQuestionCommand}"  HorizontalAlignment="Left" Margin="10,0,0,0"/>
-            
-        
+        <Button Grid.Row="5"  Width="50" Height="50" Background="#FF5599E6" Foreground="White" Content="+" FontSize="30"  VerticalAlignment="Center" Command="{Binding AddQuestionCommand}"  HorizontalAlignment="Left" Margin="10,0,0,0" VerticalContentAlignment="Top"/>
+        <Button x:Name="DeleteBtn" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Width="50" Height="50" Content="x" FontSize="30" Background="IndianRed" Command="{Binding DeleteQuestionCommand}" Margin="70,0,0,0" VerticalContentAlignment="Top" Visibility="{Binding IsDeleteBtnVisible, Converter={StaticResource BoolToVisibility}}"/>
 
-        <Button Grid.Row="5" HorizontalAlignment="Center" Width="100" Margin="50,0,0,0" Background="LightGreen" Content="Завершить" FontSize="18" Height="50" VerticalAlignment="Center" Command="{Binding CheckAnswersCommand}"/>
+
+        <Button Grid.Row="5" HorizontalAlignment="Center" Width="100" Margin="50,0,0,0" Background="LightGreen" Content="Завершить" FontSize="18" Height="50" VerticalAlignment="Center" Command="{Binding SaveTestCommand}"/>
+        <TextBlock Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="600,0,0,0" Text="{Binding WarningText}" Foreground="Red" FontSize="18" Visibility="{Binding IsWarningVisible, Converter={StaticResource BoolToVisibility}}"/>
 
         <!--Подвал-->
         <Grid Grid.Row="6" Background="#FFD8D6D6">
-            <TextBlock FontSize="40" VerticalAlignment="Center" Text="{Binding User.Email}" Margin="20,0,0,0"/>
+            <TextBlock FontSize="40" VerticalAlignment="Center" Text="{Binding DevelopingTest.Categoryid}" Margin="20,0,0,0"/>
         </Grid>
 
     </Grid>

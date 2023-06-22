@@ -92,7 +92,7 @@ namespace STS.ViewModels
 
             _role = "Соискатель";
 
-            _warningText= "фывфыв";
+            _warningText= "";
         }
 
         private RelayCommand _regCommand;

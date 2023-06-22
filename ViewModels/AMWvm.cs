@@ -190,6 +190,33 @@ namespace STS.ViewModels
                     }));
             }
         }
+
+        private RelayCommand _openCompaniesListWindowCommand;
+        public RelayCommand OpenCompaniesListWindowCommand
+        {
+            get
+            {
+                return _openCompaniesListWindowCommand ??
+                    (_openCompaniesListWindowCommand = new RelayCommand(o =>
+                    {
+
+                        STSContext context = new STSContext();
+
+                        CompaniesListWindow clw = new CompaniesListWindow();
+                        clw.DataContext = new CompaniesVM(User);
+                        clw.Show();
+
+                        foreach (Window item in App.Current.Windows)
+                        {
+                            if (item.GetType() == typeof(ApplicantMainWindow))
+                            {
+                                item.Close();
+                            }
+                        }
+
+                    }));
+            }
+        }
         /*private RelayCommand _testSelectionChangedCommand;
 
         public RelayCommand TestSelectionChangedCommand

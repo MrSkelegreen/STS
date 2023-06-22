@@ -49,7 +49,7 @@
 
                 <Button Content="Тесты" FontSize="60" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenApplicantWindowCommand}"/>
 
-                <TextBlock  Text="Компании" FontSize="60" Margin="50,0,50,0" VerticalAlignment="Center"/>
+                <Button Content="Компании" FontSize="60" Margin="50,0,50,0" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenCompaniesListWindowCommand}"/>
                 <TextBlock  Text="Избранное" FontSize="60" VerticalAlignment="Center"/>
             </DockPanel>
 

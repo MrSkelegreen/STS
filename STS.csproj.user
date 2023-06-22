@@ -11,6 +11,12 @@
     <Compile Update="Windows\AuthWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\CompaniesListWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\CreateCompanyWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\CreateTestWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -18,6 +24,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\ResultWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\TestsOfCompaniesWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\TestWindow.xaml.cs">
@@ -34,6 +43,12 @@
     <Page Update="Windows\AuthWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Windows\CompaniesListWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\CreateCompanyWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Windows\CreateTestWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -41,6 +56,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\ResultWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\TestsOfCompaniesWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\TestWindow.xaml">

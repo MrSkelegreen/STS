@@ -56,7 +56,7 @@
            
             <DockPanel Grid.Column="1">
                 <TextBlock  Text="Тесты" FontSize="60" VerticalAlignment="Center"/>
-                <TextBlock  Text="Компании" FontSize="60" Margin="50,0,50,0" VerticalAlignment="Center"/>
+                <Button  Content="Компании" FontSize="60" Margin="50,0,50,0" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenCompaniesListWindowCommand}"/>
                 <TextBlock  Text="Избранное" FontSize="60" VerticalAlignment="Center"/>
             </DockPanel>
 
@@ -96,10 +96,10 @@
           
         <!--Тесты-->
         <StackPanel Grid.Column="2" Grid.ColumnSpan="6" Grid.Row="4" Background="#FFDCCFCF" >
-            <ListBox Name="LBox" Height="620" ItemsSource="{Binding Tests}" SelectedItem="{Binding SelectedTest}">
+            <ListBox Name="LBox" Height="620" ItemsSource="{Binding Tests}" SelectedItem="{Binding SelectedTest}" VirtualizingPanel.ScrollUnit="Pixel">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid Background="Bisque">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="300"/>
                                 <ColumnDefinition Width="1000"/>

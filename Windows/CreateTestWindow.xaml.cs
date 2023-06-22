@@ -44,5 +44,7 @@ namespace STS.Windows
                 this.DragMove();
             }
         }
+
+        
     }
 }
