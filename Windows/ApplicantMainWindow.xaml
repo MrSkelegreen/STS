@@ -13,6 +13,24 @@
                 <Setter Property="FontSize" Value="18"/>
             </Style>
 
+            <Style x:Key="FavButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="LightBlue"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
             <local:NameConverter x:Key="NameConverter"/>
 
         </ResourceDictionary>
@@ -84,13 +102,13 @@
 
             <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                 <TextBlock Text="Сортировать по:" VerticalAlignment="Center" FontSize="25"/>
-                <ComboBox Width="200" Height="50" Margin="20,0,0,0"/>
-                <ComboBox Width="200" Height="50" Margin="20,0,0,0"/>
+                <ComboBox Width="200" Height="50" Margin="20,0,0,0" ItemsSource="{Binding Sortings}" VerticalContentAlignment="Center" FontSize="21" SelectedItem="{Binding SelectedSorting}" SelectionChanged="ComboBox_SelectionChanged"/>
+                <ComboBox Name="SubsortingsComboBox" Width="200" Height="50" Margin="20,0,0,0" ItemsSource="{Binding Subsortings}" FontSize="21" SelectedItem="{Binding SelectedSubsorting}" VerticalContentAlignment="Center"  SelectionChanged="SubsortingsComboBox_SelectionChanged"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal">
-                <TextBox Width="200" Height="50" HorizontalAlignment="Right" FontSize="25" VerticalContentAlignment="Center"/>
-                <Button Width="100" Height="50" HorizontalAlignment="Right" Content="Поиск" FontSize="30" Background="#FF5599E6" Foreground="White"/>
+                <TextBox Name="SearchBox" Width="200" Height="50" HorizontalAlignment="Right" FontSize="25" VerticalContentAlignment="Center" Text="{Binding SearchString}" KeyDown="TextBox_KeyDown"/>
+                <Button Name="SearchButton" Width="100" Height="50" HorizontalAlignment="Right" Content="Поиск" FontSize="30" Background="#FF5599E6" Foreground="White" Command="{Binding GetTestsCommand}" Click="Button_Click"/>
             </StackPanel>
         </Grid>
           
@@ -110,27 +128,32 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition Height="200"/>
-                                <RowDefinition/>
-                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                                
                             </Grid.RowDefinitions>
 
                             <TextBlock Text="{Binding Title}" Grid.Column="0" Grid.ColumnSpan="2" FontSize="35"/>
-                            <TextBlock Grid.Row="1" Text="{Binding Description}" Grid.Column="1" FontSize="18" TextWrapping="Wrap" Background="White" Margin="10"/>
+                            <TextBlock Grid.Row="1" Text="{Binding Description}" Grid.Column="1" FontSize="18" TextWrapping="Wrap" Background="White" Margin="10,10,10,0"/>
                             <Image Grid.Row="1" Source="{Binding Image}"/>
 
-                            <TextBlock Grid.Row="2" TextDecorations="Underline" Margin="10" HorizontalAlignment="Center" Style="{StaticResource ListBoxItemFontSize}">
-                                <TextBlock.Text>
-                                    <MultiBinding Converter="{StaticResource NameConverter}">
-                                        <Binding Path="AuthorNavigation.Firstname"/>
-                                        <Binding Path="AuthorNavigation.Lastname"/>
-                                        <Binding Path="AuthorNavigation.Patronymic"/>
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding CompanyTitle}" TextWrapping="Wrap" HorizontalAlignment="Right" TextDecorations="Underline" Style="{StaticResource ListBoxItemFontSize}" Margin="0,0,10,0" VerticalAlignment="Bottom"/>
 
-                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" Text="{Binding Category.Title}" TextDecorations="Underline" Margin="10" Style="{StaticResource ListBoxItemFontSize}" TextWrapping="WrapWithOverflow"/>
 
-                            <DockPanel Grid.Column="1" Grid.Row="3" Width="520" HorizontalAlignment="Right">
+
+                            <DockPanel Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Right">
+
+                                <TextBlock TextDecorations="Underline" Margin="10" Style="{StaticResource ListBoxItemFontSize}">
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource NameConverter}">
+                                            <Binding Path="AuthorNavigation.Firstname"/>
+                                            <Binding Path="AuthorNavigation.Lastname"/>
+                                            <Binding Path="AuthorNavigation.Patronymic"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+
+                                <TextBlock DockPanel.Dock="Left" Text="{Binding Category.Title}" TextDecorations="Underline" Margin="10" Style="{StaticResource ListBoxItemFontSize}" TextWrapping="WrapWithOverflow"/>
+
                                 <TextBlock Margin="10" Style="{StaticResource ListBoxItemFontSize}" DockPanel.Dock="Left">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}Сложность: {0}">
@@ -146,24 +169,14 @@
                                         </MultiBinding>
                                     </TextBlock.Text>
                                 </TextBlock>
-
-                                <DockPanel Margin="10" DockPanel.Dock="Left">
-                                    <TextBlock Text="{Binding TestComments.Count}" Style="{StaticResource ListBoxItemFontSize}"/>
-                                    <Image Source="{StaticResource Comment}" Margin="5,0,0,0" Width="19" Height="19" VerticalAlignment="Center"/>
-                                </DockPanel>
-
-                                <DockPanel Margin="10" HorizontalAlignment="Right" DockPanel.Dock="Right">
-                                    <TextBlock Text="{Binding Rating}" Style="{StaticResource ListBoxItemFontSize}"/>
-                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="5,0,0,0" VerticalAlignment="Center" />
-                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center" />
-                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center" />
-                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center" />
-                                    <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center" />
-                                </DockPanel>
                             </DockPanel>
 
-                            <Image Source="{StaticResource Bookmark}" Grid.Column="3"  Width="25" Height="25" HorizontalAlignment="Right"/>
-                          
+
+                            <Button Name="FavButton" Grid.Column="3"  Width="25" Height="25" HorizontalAlignment="Right" Style="{StaticResource FavButtonStyle}" Command="{Binding DataContext.AddToFavoritesCommand, RelativeSource={RelativeSource AncestorType=Window, AncestorLevel=1}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}}}">
+                                <Image Source="{StaticResource Bookmark}" Grid.Column="3"  Width="25" Height="25" HorizontalAlignment="Right"/>
+                            </Button>
+
+
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -194,7 +207,7 @@
 
         <!--Подвал-->
         <DockPanel Grid.ColumnSpan="9" Grid.Row="6" Background="#FFD8D6D6">
-            <TextBlock FontSize="40" VerticalAlignment="Center" Text="{Binding User.Email}" Margin="20,0,0,0"/>
+            <TextBlock FontSize="40" VerticalAlignment="Center" Text="{Binding User.TestString}" Margin="20,0,0,0"/>
             <Button Grid.Column="6" Grid.Row="6" Width="170" Height="70" Background="#FF5599E6" Content="Создать тест" FontSize="27" Foreground="White" Command="{Binding OpenCreateTestWindowCommand}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
         </DockPanel>
 

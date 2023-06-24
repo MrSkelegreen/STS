@@ -87,25 +87,100 @@ namespace STS.ViewModels
             }
         }
 
+        private List<string> _sortings;
+        public List<string> Sortings
+        {
+            get { return _sortings; }
+            set
+            {
+                _sortings = value;
+                OnPropertyChanged("Sortings");
+            }
+        }
+
+        private string _selectedSorting;
+        public string SelectedSorting
+        {
+            get { return _selectedSorting; }
+            set
+            {
+                _selectedSorting = value;
+                OnPropertyChanged("SelectedSorting");
+                Tests.Clear();
+                GetTests();
+            }
+        }
+
+        private List<string> _subsortings;
+        public List<string> Subsortings
+        {
+            get { return _subsortings; }
+            set
+            {
+                _subsortings = value;
+                OnPropertyChanged("Subsortings");
+            }
+        }
+
+        private string _selectedSuborting;
+        public string SelectedSubsorting
+        {
+            get { return _selectedSuborting; }
+            set
+            {
+                _selectedSuborting = value;
+                OnPropertyChanged("SelectedSubsorting");
+                Tests.Clear();
+                GetTests();
+            }
+        }
+
+        private string _searchString;
+        public string SearchString
+        {
+            get { return _searchString; }
+            set
+            {
+                _searchString = value;
+                OnPropertyChanged("SearchString");               
+            }
+        }
+
         public AMWvm(User user)
         {
             Tests = new ObservableCollection<Test>() {};
            
             User = user;
 
-            GetTests();
+            SearchString = string.Empty;
 
-            _itemTemplateFontSize = 30;
+            Sortings = new List<string>()
+            {
+                "По названию",
+                "По категории",
+                "По автору"
+            };
+
+            Subsortings = new List<string>()
+            {
+                "По возрастанию",
+                "По убыванию"
+            };
+
+            SelectedSorting = Sortings[0];
+            SelectedSubsorting = Subsortings[0];
+
+            GetTests();    
+
         }
 
         public void GetTests()
         {
-            GetTestsCommand.Execute(null);
+            GetTestsCommand.Execute(SearchString);
         }
 
         //Загрузка тестов
         private RelayCommand _getTestsCommand;
-
         public RelayCommand GetTestsCommand
         {
             get
@@ -113,23 +188,114 @@ namespace STS.ViewModels
                 return _getTestsCommand ??
                     (_getTestsCommand = new RelayCommand(get =>
                     {
-                                                                   
+                        Tests.Clear();
+                        
                         var tests = new List<Test>();
 
                         STSContext context = new STSContext();
 
-                        tests = context.Tests.Include(t => t.AuthorNavigation).OrderBy(t => t.Id).ToList();
+                        
+                        string ss = get.ToString();
+                        if (ss != null)
+                        {
+                            SearchString = ss;
+                        }
+                        
 
-                        int commentsCount = 0;
+                        if(SearchString != "")
+                        {
+                            switch (SelectedSorting)
+                            {
+                                case "По названию":
+                                    if (SelectedSubsorting == "По возрастанию")
+                                    {
+                                        tests = context.Tests.Include(t => t.AuthorNavigation).Where(t =>EF.Functions.ILike(t.Title,$"%{SearchString}%")).OrderBy(t => t.Title).ToList();
+                                    }
+                                    else
+                                    {
+                                        tests = context.Tests.Include(t => t.AuthorNavigation).Where(t => EF.Functions.ILike(t.Title, $"%{SearchString}%")).OrderByDescending(t => t.Title).ToList();
+                                    }
+                                    break;
+
+                                case "По категории":
+                                    if (SelectedSubsorting == "По возрастанию")
+                                    {
+                                        tests = context.Tests.Include(t => t.AuthorNavigation).Where(t => EF.Functions.ILike(t.Title, $"%{SearchString}%")).OrderBy(t => t.Category.Title).ToList();
+                                    }
+                                    else
+                                    {
+                                        tests = context.Tests.Include(t => t.AuthorNavigation).Where(t => EF.Functions.ILike(t.Title, $"%{SearchString}%")).OrderByDescending(t => t.Category.Title).ToList();
+                                    }
+                                    break;
+
+                                case "По автору":
+                                    if (SelectedSubsorting == "По возрастанию")
+                                    {
+                                        tests = context.Tests.Include(t => t.AuthorNavigation).Where(t => EF.Functions.ILike(t.Title, $"%{SearchString}%")).OrderBy(t => t.AuthorNavigation.Lastname).ToList();
+                                    }
+                                    else
+                                    {
+                                        tests = context.Tests.Include(t => t.AuthorNavigation).Where(t => EF.Functions.ILike(t.Title, $"%{SearchString}%")).OrderByDescending(t => t.AuthorNavigation.Lastname).ToList();
+                                    }
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            switch (SelectedSorting)
+                            {
+                                case "По названию":
+                                    if (SelectedSubsorting == "По возрастанию")
+                                    {
+                                        tests = context.Tests.Include(t => t.AuthorNavigation).OrderBy(t => t.Title).ToList();
+                                    }
+                                    else
+                                    {
+                                        tests = context.Tests.Include(t => t.AuthorNavigation).OrderByDescending(t => t.Title).ToList();
+                                    }
+                                    break;
+
+                                case "По категории":
+                                    if (SelectedSubsorting == "По возрастанию")
+                                    {
+                                        tests = context.Tests.Include(t => t.AuthorNavigation).OrderBy(t => t.Category.Title).ToList();
+                                    }
+                                    else
+                                    {
+                                        tests = context.Tests.Include(t => t.AuthorNavigation).OrderByDescending(t => t.Category.Title).ToList();
+                                    }
+                                    break;
+
+                                case "По автору":
+                                    if (SelectedSubsorting == "По возрастанию")
+                                    {
+                                        tests = context.Tests.Include(t => t.AuthorNavigation).OrderBy(t => t.AuthorNavigation.Lastname).ToList();
+                                    }
+                                    else
+                                    {
+                                        tests = context.Tests.Include(t => t.AuthorNavigation).OrderByDescending(t => t.AuthorNavigation.Lastname).ToList();
+                                    }
+                                    break;
+                            }
+                        }
+                                                                 
 
                         foreach (Test test in tests)
                         {
+                            int authorId = test.Author;
+
+                            Company company = context.Companies.FirstOrDefault(c => c.Owner == authorId);
+
+                            if(company != null)
+                            {
+                                test.CompanyTitle = company.Title;
+                            }                           
+
                             Tests.Add(test);                         
                         }
+
                         var comments = context.Tests.Include(t => t.TestComments).ToList();
                         var categories = context.Tests.Include(t => t.Category).ToList();
-
-
 
                     }));
             }
@@ -213,6 +379,27 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
+
+                    }));
+            }
+        }
+
+        private RelayCommand _addToFavoritesCommand;
+        public RelayCommand AddToFavoritesCommand
+        {
+            get
+            {
+                return _addToFavoritesCommand ??
+                    (_addToFavoritesCommand = new RelayCommand(a =>
+                    {
+
+                        STSContext context = new STSContext();
+
+                        var selectedItem = (ListBoxItem)a;
+
+                        Test test = selectedItem.Content as Test;
+
+                        User.TestString = test.Title;
 
                     }));
             }

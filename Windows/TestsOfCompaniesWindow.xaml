@@ -62,7 +62,7 @@
         <TextBlock Grid.Column="1" Grid.Row="1"  FontSize="60" Margin="0,10,0,10">
             <TextBlock.Text>
                 <MultiBinding StringFormat="{}Тесты компании {0}">
-                    <Binding Path="Company.Title"/>
+                    <Binding Path="SelectedCompany.Title"/>
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>

@@ -15,8 +15,8 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
 
     </Window.Resources>
-    
-    <Grid>
+
+    <Grid Background="LightGray">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -57,8 +57,8 @@
         <TextBlock Name="Watermark" Grid.Column="1" Grid.Row="5" IsHitTestVisible="False" FontSize="18" Foreground="Gray" VerticalAlignment="Center" Text="Пароль" Margin="3,0,0,0"/>
 
         <TextBlock Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Введены некорректные данные" FontSize="13" Foreground="#FFDC0A0A" Visibility="{Binding IsWarningVisible, Converter={StaticResource BoolToVisibility}}"/>
- 
-        <Button Grid.Column="1" Grid.Row="7" Content="Войти" FontSize="35" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=pwBox}"/>
+
+        <Button Grid.Column="1" Grid.Row="7" Content="Войти" FontSize="35" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=pwBox}" Background="#FF5599E6" Foreground="White"/>
 
         <Button Grid.Column="1" Grid.Row="8"  FontSize="20" Height="35" VerticalAlignment="Center" Content="Регистрация" Command="{Binding OpenRegWindow}" Click="Button_Click"/>
 

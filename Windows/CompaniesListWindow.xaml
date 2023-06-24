@@ -14,7 +14,11 @@
 
             <local:NameConverter x:Key="NameConverter"/>
 
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+            
         </ResourceDictionary>
+        
+        
     </Window.Resources>
 
     <Grid>
@@ -83,7 +87,7 @@
 
                             <TextBlock FontSize="18">
                                 <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}Дата: {0:dd.MM.yyyy}">
+                                    <MultiBinding StringFormat="{}Дата основания: {0:dd.MM.yyyy}">
                                         <Binding Path="Startdate"/>
                                     </MultiBinding>
                                 </TextBlock.Text>
@@ -108,7 +112,9 @@
 
         <DockPanel Grid.ColumnSpan="3" Grid.Row="3" Background="#FFD8D6D6">
             <TextBlock FontSize="40" VerticalAlignment="Center" Text="{Binding User.Email}" Margin="20,0,0,0"/>
-            <Button  Width="250" Height="70" Grid.ColumnSpan="2" Background="#FF5599E6" Content="Создать компанию" FontSize="27" Foreground="White" Command="{Binding OpenCreateTestWindowCommand}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+            
+            <Button  Width="250" Height="70"  Background="#FF5599E6" Content="Создать компанию" FontSize="27" Foreground="White" Command="{Binding OpenCreateCompanyWindowCommand}" HorizontalAlignment="Right" Margin="0,0,10,0" DockPanel.Dock="Right"/>
+            <TextBlock Text="У вас уже есть компания" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="0,0,10,0" FontSize="27" Foreground="Red" Visibility="{Binding IsWarningVisible, Converter={StaticResource BoolToVisibility}}"/>
         </DockPanel>
 
     </Grid>

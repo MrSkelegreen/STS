@@ -5,8 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STS.Windows"
         mc:Ignorable="d"
-        Title="CreateCompanyWindow" Height="620" Width="400" WindowStartupLocation="CenterScreen">
-    <Grid>
+        Title="Создание компании" Height="620" MaxHeight="620" MinHeight="620" Width="400"  MaxWidth="400" MinWidth="400" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style x:Key="TitleWatermark" TargetType="TextBlock">
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Style.Triggers>
+                <DataTrigger Binding="{Binding Text, ElementName=TitleBox}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DescriptionWatermark" TargetType="TextBlock">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text, ElementName=DescriptionBox}" Value="">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        
+
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        
+    </Window.Resources>
+    
+    <Grid Background="LightGray">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
             <ColumnDefinition/>
@@ -14,11 +40,36 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
+        <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Text="Создать компанию" FontSize="40"/>
+
+        <TextBox Name="TitleBox" Grid.Row="1" Grid.Column="1" Height="30" FontSize="18" Text="{Binding NewCompany.Title}"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" IsHitTestVisible="False" VerticalAlignment="Center" FontSize="18" Foreground="Gray" Text="Название" Margin="3,0,0,0" Style="{StaticResource TitleWatermark}"/>
+
+        <StackPanel Grid.Column="1" Grid.Row="3" VerticalAlignment="Center">
+            <TextBlock  Text="Дата создания"/>
+            <DatePicker Name="DatePicker" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" FontSize="18" SelectedDate="{Binding SelectedDate}">
+                <DatePicker.Resources>
+                    <Style TargetType="DatePickerTextBox">
+                        <Setter Property="IsReadOnly" Value="True"/>
+                    </Style>
+                </DatePicker.Resources>
+            </DatePicker>
+        </StackPanel>
+
+        <TextBox Name="DescriptionBox" Grid.Row="2" Grid.Column="1" FontSize="18" Text="{Binding NewCompany.Description}"/>
+        <TextBlock Grid.Column="1" Grid.Row="2" IsHitTestVisible="False" VerticalAlignment="Center" FontSize="18" Foreground="Gray" Text="Описание" Margin="3,0,0,0" Style="{StaticResource DescriptionWatermark}" />
+
+        <TextBlock Name="Warning" Grid.Column="1" Grid.Row="4" Height="30" HorizontalAlignment="Center" Foreground="Red" Visibility="{Binding IsWarningVisible, Converter={StaticResource BoolToVisibility}}" Text="Заполните название" FontSize="18"/>
+
+        <Button Content="Создать" Grid.Column="1" Grid.Row="5" Height="60" Width="200" FontSize="23" Background="#FF5599E6" Foreground="White" Command="{Binding AddCompanyCommand}"/>
+
     </Grid>
 </Window>

@@ -100,9 +100,10 @@ public partial class STSContext : DbContext
 
         modelBuilder.Entity<Company>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("company", "STS");
+
+            entity.HasKey(e => e.Id).HasName("company_pk");
+
+            entity.ToTable("company", "STS");
 
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Id)

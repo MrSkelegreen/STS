@@ -45,32 +45,37 @@ namespace STS.Windows
             }
         }
 
-
-
-       /* public RelayCommand SelectedRoleCommand
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            get { return (RelayCommand)GetValue(SelectedRoleCommandProperty); }
-            set { SetValue(SelectedRoleCommandProperty, value); }
+
         }
 
-        // Using a DependencyProperty as the backing store for SelectedRoleCommand.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SelectedRoleCommandProperty =
-            DependencyProperty.Register("SelectedRoleCommand", typeof(RelayCommand), typeof(ComboBox), new PropertyMetadata(null));
+
+
+        /* public RelayCommand SelectedRoleCommand
+         {
+             get { return (RelayCommand)GetValue(SelectedRoleCommandProperty); }
+             set { SetValue(SelectedRoleCommandProperty, value); }
+         }
+
+         // Using a DependencyProperty as the backing store for SelectedRoleCommand.  This enables animation, styling, binding, etc...
+         public static readonly DependencyProperty SelectedRoleCommandProperty =
+             DependencyProperty.Register("SelectedRoleCommand", typeof(RelayCommand), typeof(ComboBox), new PropertyMetadata(null));
 
 
 
-        private void roleBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //MessageBox.Show("!");
+         private void roleBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+         {
+             //MessageBox.Show("!");
 
-            //(DataContext as RegVM).RoleChanged.Execute(null);
+             //(DataContext as RegVM).RoleChanged.Execute(null);
 
-            if(SelectedRoleCommand != null)
-            {
-                SelectedRoleCommand.Execute(roleBox.SelectedItem);
-            }
-        }*/
+             if(SelectedRoleCommand != null)
+             {
+                 SelectedRoleCommand.Execute(roleBox.SelectedItem);
+             }
+         }*/
 
-       
+
     }
 }

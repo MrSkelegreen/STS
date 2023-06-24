@@ -14,14 +14,13 @@ using System.Windows.Shapes;
 
 namespace STS.Windows
 {
-    /// <summary>
-    /// Логика взаимодействия для CreateCompanyWindow.xaml
-    /// </summary>
+   
     public partial class CreateCompanyWindow : Window
     {
         public CreateCompanyWindow()
         {
             InitializeComponent();
-        }
+            
+        }         
     }
 }

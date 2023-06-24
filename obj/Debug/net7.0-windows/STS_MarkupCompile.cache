@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 N:\DZ\TRPO\KURSACH\Project\STS\App.xaml
-9-1987369089
+10-272501326
 
-40-1154434193
+422059423138
 2122005149740
-ListboxTemplate.xaml;Windows\ApplicantMainWindow.xaml;Windows\AuthWindow.xaml;Windows\CompaniesListWindow.xaml;Windows\CreateTestWindow.xaml;Windows\RegWindow.xaml;Windows\ResultWindow.xaml;Windows\TestsOfCompaniesWindow.xaml;Windows\TestWindow.xaml;
+ListboxTemplate.xaml;Windows\ApplicantMainWindow.xaml;Windows\AuthWindow.xaml;Windows\CompaniesListWindow.xaml;Windows\CreateCompanyWindow.xaml;Windows\CreateTestWindow.xaml;Windows\RegWindow.xaml;Windows\ResultWindow.xaml;Windows\TestsOfCompaniesWindow.xaml;Windows\TestWindow.xaml;
 
 False
 

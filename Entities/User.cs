@@ -1,10 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace STS.DAL.Entities;
 
-public partial class User
+public partial class User : INotifyPropertyChanged
 {
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    [NotMapped] public string _testString;
+    [NotMapped]
+    public string TestString
+    {
+        get { return _testString; }
+        set 
+        {
+            _testString = value;
+            OnPropertyChanged("TestString");
+        }
+    }
+
     public int Id { get; set; }
 
     public string Firstname { get; set; } = null!;
@@ -35,4 +52,14 @@ public partial class User
     public virtual ICollection<Testgroup> Testgroups { get; set; } = new List<Testgroup>();
 
     public virtual ICollection<Test> Tests { get; set; } = new List<Test>();
+
+    private void OnPropertyChanged(string value)
+    {
+        PropertyChangedEventHandler handler = PropertyChanged;
+        if (handler != null)
+        {
+            handler(this, new PropertyChangedEventArgs(value));
+        }
+    }
+
 }

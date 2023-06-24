@@ -98,3 +98,5 @@ N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\CompaniesListWin
 N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\CompaniesListWindow.baml
 N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\TestsOfCompaniesWindow.g.cs
 N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\TestsOfCompaniesWindow.baml
+N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\CreateCompanyWindow.g.cs
+N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\CreateCompanyWindow.baml

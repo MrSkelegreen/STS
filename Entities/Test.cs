@@ -1,6 +1,7 @@
 ﻿using STS.DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace STS;
 
@@ -37,4 +38,6 @@ public partial class Test
     public virtual ICollection<TestComment> TestComments { get; set; } = new List<TestComment>();
 
     public virtual ICollection<TestTestgroup> TestTestgroups { get; set; } = new List<TestTestgroup>();
+
+    [NotMapped] public string? CompanyTitle { get; set; }
 }

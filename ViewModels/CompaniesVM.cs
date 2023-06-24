@@ -48,11 +48,23 @@ namespace STS.ViewModels
             }
         }
 
+        private bool _isWarningVisible;
+        public bool IsWarningVisible
+        {
+            get { return _isWarningVisible; }
+            set
+            {
+                _isWarningVisible = value;
+                OnPropertyChanged("IsWarningVisible");
+            }
+        }
+
         public CompaniesVM(User user) 
         {
             Companies = new ObservableCollection<Company>();
             GetCompanies();
             User = user;
+            IsWarningVisible = false;
         }
 
         public void GetCompanies()
@@ -62,7 +74,6 @@ namespace STS.ViewModels
 
         //Загрузка компаний
         private RelayCommand _getCompaniesCommand;
-
         public RelayCommand GetCompaniesCommand
         {
             get
@@ -88,6 +99,33 @@ namespace STS.ViewModels
             }
         }
 
+        private RelayCommand _openCreateCompanyWindowCommand;
+        public RelayCommand OpenCreateCompanyWindowCommand
+        {
+            get
+            {
+                return _openCreateCompanyWindowCommand ??
+                    (_openCreateCompanyWindowCommand = new RelayCommand(open =>
+                    {
+                        STSContext context = new STSContext();
+
+                        Company company = context.Companies.FirstOrDefault(c => c.Owner == User.Id);
+
+                        if (company == null)
+                        {
+                            CreateCompanyWindow ccw = new CreateCompanyWindow();
+                            ccw.DataContext = new CreateCompanyVM(User);
+                            ccw.Show();
+                        }
+                        else
+                        {
+                            IsWarningVisible = true;
+                        }
+                                                                
+                    }));
+            }
+        }
+
         private RelayCommand _openApplicantWindowCommand;
         public RelayCommand OpenApplicantWindowCommand
         {
@@ -109,7 +147,6 @@ namespace STS.ViewModels
                     }));
             }
         }
-
 
         private RelayCommand _openTestsOfCompaniesWindowCommand;
         public RelayCommand OpenTestsOfCompaniesWindowCommand
