@@ -20,6 +20,12 @@
     <Compile Update="Windows\CreateTestWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\FavoritesWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\ProfileWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\RegWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -50,6 +56,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\CreateTestWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\FavoritesWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\ProfileWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\RegWindow.xaml">

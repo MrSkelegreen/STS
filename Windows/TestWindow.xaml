@@ -3,8 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:STS.Windows" xmlns:viewmodels="clr-namespace:STS.ViewModels" xmlns:i="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core" xmlns:x1="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic" d:DataContext="{d:DesignInstance Type=viewmodels:TestVM}"
+        xmlns:local="clr-namespace:STS.Windows" xmlns:viewmodels="clr-namespace:STS.ViewModels"  d:DataContext="{d:DesignInstance Type=viewmodels:TestVM}"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         Title="TestWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
@@ -37,7 +38,7 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="640"/>
-                <ColumnDefinition Width="850"/>
+                <ColumnDefinition Width="860"/>
                 <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -50,12 +51,26 @@
                 <Button Content="Тесты" FontSize="60" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenApplicantWindowCommand}"/>
 
                 <Button Content="Компании" FontSize="60" Margin="50,0,50,0" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenCompaniesListWindowCommand}"/>
-                <TextBlock  Text="Избранное" FontSize="60" VerticalAlignment="Center"/>
+                <Button  Content="Избранное" FontSize="60" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenFavoritesWindowComand}"/>
             </DockPanel>
 
             <DockPanel Grid.Column="2">
                 <Image Margin="40,0,15,0" Source="{StaticResource Profile}" VerticalAlignment="Center" Width="70" />
                 <TextBlock VerticalAlignment="Center" Text="Профиль" FontSize="30" HorizontalAlignment="Left"/>
+            </DockPanel>
+
+            <DockPanel Grid.Column="2">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding OpenProfileWindowCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <Image Margin="40,0,15,0" Source="{StaticResource Profile}" VerticalAlignment="Center" Width="70"/>
+
+                <TextBlock VerticalAlignment="Center" Text="Профиль" FontSize="30" HorizontalAlignment="Left"/>
+
             </DockPanel>
 
             <DockPanel HorizontalAlignment="Right" Grid.Column="3">

@@ -118,16 +118,17 @@ namespace STS.ViewModels
                        {
                            if (user == null)
                            {
-                               User user1 = new User(); 
+                               
                                ApplicantMainWindow amw = new ApplicantMainWindow();
-                               amw.DataContext = new AMWvm(user1);
+                               amw.DataContext = new AMWvm(User);
                             
                               if (Role == "Работодатель")
                                {
                                    _user.Role = true;
                                }
 
-                               context.Database.ExecuteSqlRaw($" INSERT INTO \"STS\".\"STS\".users  (Firstname, Lastname, Patronymic, Email, Role, pw) VALUES ('{_user.Firstname}', '{_user.Lastname}', '{_user.Patronymic}', '{_user.Email}', '{_user.Role}', '{_user.pw}');");
+                               context.Users.Add(User);
+                               context.SaveChanges();
 
                                amw.Show();
                                foreach (Window item in App.Current.Windows)

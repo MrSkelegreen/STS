@@ -10,18 +10,6 @@ public partial class User : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
 
-    [NotMapped] public string _testString;
-    [NotMapped]
-    public string TestString
-    {
-        get { return _testString; }
-        set 
-        {
-            _testString = value;
-            OnPropertyChanged("TestString");
-        }
-    }
-
     public int Id { get; set; }
 
     public string Firstname { get; set; } = null!;

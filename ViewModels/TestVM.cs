@@ -182,5 +182,58 @@ namespace STS.ViewModels
             }
         }
 
+        private RelayCommand _openFavoritesWindowComand;
+        public RelayCommand OpenFavoritesWindowComand
+        {
+            get
+            {
+                return _openFavoritesWindowComand ??
+                    (_openFavoritesWindowComand = new RelayCommand(o =>
+                    {
+
+                        STSContext context = new STSContext();
+
+                        FavoritesWindow favoritesWindow = new FavoritesWindow();
+                        favoritesWindow.DataContext = new FavoritesVM(User);
+                        favoritesWindow.Show();
+
+                        foreach (Window item in App.Current.Windows)
+                        {
+                            if (item.GetType() == typeof(TestWindow))
+                            {
+                                item.Close();
+                            }
+                        }
+
+                    }));
+            }
+        }
+
+        private RelayCommand _openProfileWindowCommand;
+        public RelayCommand OpenProfileWindowCommand
+        {
+            get
+            {
+                return _openProfileWindowCommand ??
+                    (_openProfileWindowCommand = new RelayCommand(o =>
+                    {
+
+                        STSContext context = new STSContext();
+
+                        ProfileWindow profileWindow = new ProfileWindow();
+                        profileWindow.DataContext = new ProfileVM(User);
+                        profileWindow.Show();
+
+                        foreach (Window item in App.Current.Windows)
+                        {
+                            if (item.GetType() == typeof(TestWindow))
+                            {
+                                item.Close();
+                            }
+                        }
+
+                    }));
+            }
+        }
     }
 }

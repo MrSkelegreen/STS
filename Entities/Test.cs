@@ -1,12 +1,15 @@
 ﻿using STS.DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace STS;
 
-public partial class Test
+public partial class Test : INotifyPropertyChanged
 {
+    public event PropertyChangedEventHandler PropertyChanged;
+
     public int Id { get; set; }
 
     public string Title { get; set; } = null!;
@@ -40,4 +43,25 @@ public partial class Test
     public virtual ICollection<TestTestgroup> TestTestgroups { get; set; } = new List<TestTestgroup>();
 
     [NotMapped] public string? CompanyTitle { get; set; }
+
+    [NotMapped] private string? _bookmarkPath;
+    [NotMapped]
+    public string? BookmarkPath
+    {
+        get { return _bookmarkPath; }
+        set 
+        {
+            _bookmarkPath = value;
+            OnPropertyChanged("BookmarkPath");
+        }
+    }
+
+    private void OnPropertyChanged(string value)
+    {
+        PropertyChangedEventHandler handler = PropertyChanged;
+        if (handler != null)
+        {
+            handler(this, new PropertyChangedEventArgs(value));
+        }
+    }
 }

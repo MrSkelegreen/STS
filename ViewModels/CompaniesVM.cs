@@ -59,12 +59,25 @@ namespace STS.ViewModels
             }
         }
 
+        private bool _isCreateCompanyButtonVisible;
+        public bool IsCreateCompanyButtonVisible
+        {
+            get { return _isCreateCompanyButtonVisible; }
+            set
+            {
+                _isCreateCompanyButtonVisible = value;
+                OnPropertyChanged("IsCreateCompanyButtonVisible");
+            }
+        }
+
         public CompaniesVM(User user) 
         {
             Companies = new ObservableCollection<Company>();
             GetCompanies();
             User = user;
             IsWarningVisible = false;
+
+            IsCreateCompanyButtonVisible = User.Role;
         }
 
         public void GetCompanies()
@@ -166,6 +179,60 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
+                    }));
+            }
+        }
+
+        private RelayCommand _openFavoritesWindowComand;
+        public RelayCommand OpenFavoritesWindowComand
+        {
+            get
+            {
+                return _openFavoritesWindowComand ??
+                    (_openFavoritesWindowComand = new RelayCommand(o =>
+                    {
+
+                        STSContext context = new STSContext();
+
+                        FavoritesWindow favoritesWindow = new FavoritesWindow();
+                        favoritesWindow.DataContext = new FavoritesVM(User);
+                        favoritesWindow.Show();
+
+                        foreach (Window item in App.Current.Windows)
+                        {
+                            if (item.GetType() == typeof(CompaniesListWindow))
+                            {
+                                item.Close();
+                            }
+                        }
+
+                    }));
+            }
+        }
+
+        private RelayCommand _openProfileWindowCommand;
+        public RelayCommand OpenProfileWindowCommand
+        {
+            get
+            {
+                return _openProfileWindowCommand ??
+                    (_openProfileWindowCommand = new RelayCommand(o =>
+                    {
+
+                        STSContext context = new STSContext();
+
+                        ProfileWindow profileWindow = new ProfileWindow();
+                        profileWindow.DataContext = new ProfileVM(User);
+                        profileWindow.Show();
+
+                        foreach (Window item in App.Current.Windows)
+                        {
+                            if (item.GetType() == typeof(CompaniesListWindow))
+                            {
+                                item.Close();
+                            }
+                        }
+
                     }));
             }
         }

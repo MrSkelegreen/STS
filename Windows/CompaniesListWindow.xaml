@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STS.Windows"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         Title="CompaniesListWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
@@ -52,7 +53,21 @@
             <DockPanel Grid.Column="1">
                 <Button Content="Тесты" FontSize="60" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenApplicantWindowCommand}"/>
                 <Button Content="Компании" FontSize="60" Margin="50,0,50,0" VerticalAlignment="Center" Background="#FF7D7777"/>
-                <TextBlock  Text="Избранное" FontSize="60" VerticalAlignment="Center"/>
+                <Button  Content="Избранное" FontSize="60" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenFavoritesWindowComand}"/>
+            </DockPanel>
+
+            <DockPanel Grid.Column="2">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding OpenProfileWindowCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <Image Margin="40,0,15,0" Source="{StaticResource Profile}" VerticalAlignment="Center" Width="70"/>
+
+                <TextBlock VerticalAlignment="Center" Text="Профиль" FontSize="30" HorizontalAlignment="Left"/>
+
             </DockPanel>
 
             <DockPanel HorizontalAlignment="Right" Grid.Column="3">
@@ -112,8 +127,8 @@
 
         <DockPanel Grid.ColumnSpan="3" Grid.Row="3" Background="#FFD8D6D6">
             <TextBlock FontSize="40" VerticalAlignment="Center" Text="{Binding User.Email}" Margin="20,0,0,0"/>
-            
-            <Button  Width="250" Height="70"  Background="#FF5599E6" Content="Создать компанию" FontSize="27" Foreground="White" Command="{Binding OpenCreateCompanyWindowCommand}" HorizontalAlignment="Right" Margin="0,0,10,0" DockPanel.Dock="Right"/>
+
+            <Button Name="CreateCompanyButton"  Width="250" Height="70"  Background="#FF5599E6" Content="Создать компанию" FontSize="27" Foreground="White" Command="{Binding OpenCreateCompanyWindowCommand}" HorizontalAlignment="Right" Margin="0,0,10,0" DockPanel.Dock="Right" Visibility="{Binding IsCreateCompanyButtonVisible, Converter={StaticResource BoolToVisibility}}"/>
             <TextBlock Text="У вас уже есть компания" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="0,0,10,0" FontSize="27" Foreground="Red" Visibility="{Binding IsWarningVisible, Converter={StaticResource BoolToVisibility}}"/>
         </DockPanel>
 

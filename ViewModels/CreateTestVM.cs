@@ -48,9 +48,7 @@ namespace STS.ViewModels
                 _questions = value;
                 
                 OnPropertyChanged("Questions");
-                //Questions.OrderBy(i => i.Id);
-
-                
+                             
             }
         }
 
@@ -303,6 +301,7 @@ namespace STS.ViewModels
                     }));
             }
         }
+
         private RelayCommand _openCompaniesListWindowCommand;
         public RelayCommand OpenCompaniesListWindowCommand
         {
@@ -317,6 +316,60 @@ namespace STS.ViewModels
                         CompaniesListWindow clw = new CompaniesListWindow();
                         clw.DataContext = new CompaniesVM(User);
                         clw.Show();
+
+                        foreach (Window item in App.Current.Windows)
+                        {
+                            if (item.GetType() == typeof(CreateTestWindow))
+                            {
+                                item.Close();
+                            }
+                        }
+
+                    }));
+            }
+        }
+
+        private RelayCommand _openFavoritesWindowComand;
+        public RelayCommand OpenFavoritesWindowComand
+        {
+            get
+            {
+                return _openFavoritesWindowComand ??
+                    (_openFavoritesWindowComand = new RelayCommand(o =>
+                    {
+
+                        STSContext context = new STSContext();
+
+                        FavoritesWindow favoritesWindow = new FavoritesWindow();
+                        favoritesWindow.DataContext = new FavoritesVM(User);
+                        favoritesWindow.Show();
+
+                        foreach (Window item in App.Current.Windows)
+                        {
+                            if (item.GetType() == typeof(CreateTestWindow))
+                            {
+                                item.Close();
+                            }
+                        }
+
+                    }));
+            }
+        }
+
+        private RelayCommand _openProfileWindowCommand;
+        public RelayCommand OpenProfileWindowCommand
+        {
+            get
+            {
+                return _openProfileWindowCommand ??
+                    (_openProfileWindowCommand = new RelayCommand(o =>
+                    {
+
+                        STSContext context = new STSContext();
+
+                        ProfileWindow profileWindow = new ProfileWindow();
+                        profileWindow.DataContext = new ProfileVM(User);
+                        profileWindow.Show();
 
                         foreach (Window item in App.Current.Windows)
                         {

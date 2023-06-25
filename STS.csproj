@@ -12,6 +12,7 @@
     <None Remove="Images\commentIcon.png" />
     <None Remove="Images\fullStarImage.png" />
     <None Remove="Images\profileIcon.png" />
+    <None Remove="Images\redBookmark.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Expression.Blend.Sdk.WPF" Version="1.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,6 +29,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
   </ItemGroup>
 
@@ -42,6 +45,7 @@
     <Resource Include="Images\bookMarkImage.png" />
     <Resource Include="Images\commentIcon.png" />
     <Resource Include="Images\profileIcon.png" />
+    <Resource Include="Images\redBookmark.png" />
   </ItemGroup>
 
 </Project>

@@ -5,11 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STS.Windows"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         Title="TestsOfCompaniesWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="ListBoxItemFontSize" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="18"/>
+            </Style>
+
+            <Style x:Key="FavButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="LightBlue"/>
+                    </Trigger>
+                </Style.Triggers>
             </Style>
 
             <local:NameConverter x:Key="NameConverter"/>
@@ -48,7 +67,21 @@
             <DockPanel Grid.Column="1">
                 <Button Content="Тесты" FontSize="60" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenApplicantWindowCommand}"/>
                 <Button Content="Компании" FontSize="60" Margin="50,0,50,0" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenCompaniesListWindowCommand}"/>
-                <TextBlock  Text="Избранное" FontSize="60" VerticalAlignment="Center"/>
+                <Button  Content="Избранное" FontSize="60" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenFavoritesWindowComand}"/>
+            </DockPanel>
+
+            <DockPanel Grid.Column="2">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding OpenProfileWindowCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <Image Margin="40,0,15,0" Source="{StaticResource Profile}" VerticalAlignment="Center" Width="70"/>
+
+                <TextBlock VerticalAlignment="Center" Text="Профиль" FontSize="30" HorizontalAlignment="Left"/>
+
             </DockPanel>
 
             <DockPanel HorizontalAlignment="Right" Grid.Column="3">
@@ -67,7 +100,7 @@
             </TextBlock.Text>
         </TextBlock>
 
-        <ListBox Name="LBox" Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Tests}" SelectedItem="{Binding SelectedTest}" VirtualizingPanel.ScrollUnit="Pixel">
+        <ListBox Name="LBox"  Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Tests}" SelectedItem="{Binding SelectedTest}" VirtualizingPanel.ScrollUnit="Pixel">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Background="Bisque">
@@ -81,27 +114,32 @@
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition Height="200"/>
-                            <RowDefinition/>
-                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+
                         </Grid.RowDefinitions>
 
                         <TextBlock Text="{Binding Title}" Grid.Column="0" Grid.ColumnSpan="2" FontSize="35"/>
-                        <TextBlock Grid.Row="1" Text="{Binding Description}" Grid.Column="1" FontSize="18" TextWrapping="Wrap" Background="White" Margin="10"/>
+                        <TextBlock Grid.Row="1" Text="{Binding Description}" Grid.Column="1" FontSize="18" TextWrapping="Wrap" Background="White" Margin="10,10,10,0"/>
                         <Image Grid.Row="1" Source="{Binding Image}"/>
 
-                        <TextBlock Grid.Row="2" TextDecorations="Underline" Margin="10" HorizontalAlignment="Center" Style="{StaticResource ListBoxItemFontSize}">
-                            <TextBlock.Text>
-                                <MultiBinding Converter="{StaticResource NameConverter}">
-                                    <Binding Path="AuthorNavigation.Firstname"/>
-                                    <Binding Path="AuthorNavigation.Lastname"/>
-                                    <Binding Path="AuthorNavigation.Patronymic"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding CompanyTitle}" TextWrapping="Wrap" HorizontalAlignment="Right" TextDecorations="Underline" Style="{StaticResource ListBoxItemFontSize}" Margin="0,0,10,0" VerticalAlignment="Bottom"/>
 
-                        <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" Text="{Binding Category.Title}" TextDecorations="Underline" Margin="10" Style="{StaticResource ListBoxItemFontSize}" TextWrapping="WrapWithOverflow"/>
 
-                        <DockPanel Grid.Column="1" Grid.Row="3" Width="520" HorizontalAlignment="Right">
+
+                        <DockPanel Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Right">
+
+                            <TextBlock TextDecorations="Underline" Margin="10" Style="{StaticResource ListBoxItemFontSize}">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                        <Binding Path="AuthorNavigation.Firstname"/>
+                                        <Binding Path="AuthorNavigation.Lastname"/>
+                                        <Binding Path="AuthorNavigation.Patronymic"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                            <TextBlock DockPanel.Dock="Left" Text="{Binding Category.Title}" TextDecorations="Underline" Margin="10" Style="{StaticResource ListBoxItemFontSize}" TextWrapping="WrapWithOverflow"/>
+
                             <TextBlock Margin="10" Style="{StaticResource ListBoxItemFontSize}" DockPanel.Dock="Left">
                                 <TextBlock.Text>
                                     <MultiBinding StringFormat="{}Сложность: {0}">
@@ -117,23 +155,13 @@
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
-
-                            <DockPanel Margin="10" DockPanel.Dock="Left">
-                                <TextBlock Text="{Binding TestComments.Count}" Style="{StaticResource ListBoxItemFontSize}"/>
-                                <Image Source="{StaticResource Comment}" Margin="5,0,0,0" Width="19" Height="19" VerticalAlignment="Center"/>
-                            </DockPanel>
-
-                            <DockPanel Margin="10" HorizontalAlignment="Right" DockPanel.Dock="Right">
-                                <TextBlock Text="{Binding Rating}" Style="{StaticResource ListBoxItemFontSize}"/>
-                                <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="5,0,0,0" VerticalAlignment="Center" />
-                                <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center" />
-                                <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center" />
-                                <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center" />
-                                <Image Source="{StaticResource FullStar}" Width="17" Height="17" Margin="0,0,0,0" VerticalAlignment="Center" />
-                            </DockPanel>
                         </DockPanel>
 
-                        <Image Source="{StaticResource Bookmark}" Grid.Column="3"  Width="25" Height="25" HorizontalAlignment="Right"/>
+
+                        <Button Name="FavButton" Grid.Column="3"  Width="25" Height="25" HorizontalAlignment="Right" Style="{StaticResource FavButtonStyle}" Command="{Binding DataContext.AddToFavoritesCommand, RelativeSource={RelativeSource AncestorType=Window, AncestorLevel=1}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}}}">
+                            <Image Source="{Binding BookmarkPath}" Grid.Column="3"  Width="25" Height="25" HorizontalAlignment="Right"/>
+                        </Button>
+
 
                     </Grid>
                 </DataTemplate>

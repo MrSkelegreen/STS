@@ -4,8 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STS.Windows"
-        xmlns:c="clr-namespace:STS" xmlns:ie="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core"
+        xmlns:c="clr-namespace:STS" 
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        
         mc:Ignorable="d"
+        
         Title="ApplicantMainWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
@@ -32,30 +35,25 @@
             </Style>
 
             <local:NameConverter x:Key="NameConverter"/>
+            
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
 
         </ResourceDictionary>
     </Window.Resources>
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="290"/>
-            <ColumnDefinition Width="34*"/>
-            <ColumnDefinition Width="309*"/>
-            <ColumnDefinition Width="218*"/>
-            <ColumnDefinition Width="349*"/>
-            <ColumnDefinition Width="252*"/>
-            <ColumnDefinition Width="253*"/>
-            <ColumnDefinition Width="122*"/>
-            <ColumnDefinition Width="94*"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
+            
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="96*"/>
             <RowDefinition Height="85*"/>
-            <RowDefinition Height="39*"/>
             <RowDefinition Height="621*"/>
-            <RowDefinition Height="37*"/>
             <RowDefinition Height="102*"/>
         </Grid.RowDefinitions>
 
@@ -64,7 +62,7 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="640"/>
-                <ColumnDefinition Width="850"/>
+                <ColumnDefinition Width="860"/>
                 <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -75,12 +73,21 @@
             <DockPanel Grid.Column="1">
                 <TextBlock  Text="Тесты" FontSize="60" VerticalAlignment="Center"/>
                 <Button  Content="Компании" FontSize="60" Margin="50,0,50,0" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenCompaniesListWindowCommand}"/>
-                <TextBlock  Text="Избранное" FontSize="60" VerticalAlignment="Center"/>
+                <Button  Content="Избранное" FontSize="60" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenFavoritesWindowComand}"/>
             </DockPanel>
 
             <DockPanel Grid.Column="2">
-                <Image Margin="40,0,15,0" Source="{StaticResource Profile}" VerticalAlignment="Center" Width="70" />
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding OpenProfileWindowCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <Image Margin="40,0,15,0" Source="{StaticResource Profile}" VerticalAlignment="Center" Width="70"/>
+
                 <TextBlock VerticalAlignment="Center" Text="Профиль" FontSize="30" HorizontalAlignment="Left"/>
+
             </DockPanel>
 
             <DockPanel HorizontalAlignment="Right" Grid.Column="3">
@@ -90,10 +97,10 @@
             </DockPanel>
         </Grid>
 
-        <TextBlock Grid.Column="2" Grid.Row="1" Text="Тесты" FontSize="60"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Text="Тесты" FontSize="60"/>
 
         <!--Сортировка и поиск-->
-        <Grid Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="6" Background="#FFE8DCDC">
+        <Grid Grid.Column="1" Grid.Row="2"  Background="#FFE8DCDC">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1180"/>
@@ -113,8 +120,8 @@
         </Grid>
           
         <!--Тесты-->
-        <StackPanel Grid.Column="2" Grid.ColumnSpan="6" Grid.Row="4" Background="#FFDCCFCF" >
-            <ListBox Name="LBox" Height="620" ItemsSource="{Binding Tests}" SelectedItem="{Binding SelectedTest}" VirtualizingPanel.ScrollUnit="Pixel">
+        
+            <ListBox Name="LBox"  Grid.Column="1" Grid.Row="3" ItemsSource="{Binding Tests}" SelectedItem="{Binding SelectedTest}" VirtualizingPanel.ScrollUnit="Pixel" Margin="0,10,0,10">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Background="Bisque">
@@ -173,45 +180,25 @@
 
 
                             <Button Name="FavButton" Grid.Column="3"  Width="25" Height="25" HorizontalAlignment="Right" Style="{StaticResource FavButtonStyle}" Command="{Binding DataContext.AddToFavoritesCommand, RelativeSource={RelativeSource AncestorType=Window, AncestorLevel=1}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}}}">
-                                <Image Source="{StaticResource Bookmark}" Grid.Column="3"  Width="25" Height="25" HorizontalAlignment="Right"/>
+                                <Image Source="{Binding BookmarkPath}" Grid.Column="3"  Width="25" Height="25" HorizontalAlignment="Right"/>
                             </Button>
+
 
 
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-        </StackPanel>
+        
 
-        <!--Категории-->
-        <Grid Grid.Row="4" Background="#FFE8DCDC">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="Категории" FontSize="40" Margin="10,0,0,0"/>
-
-            <DockPanel Grid.Row="1">
-                <TextBox HorizontalAlignment="Left" Width="232" Height="40" Margin="10,0,0,0" FontSize="23" VerticalContentAlignment="Center"/>
-                <Button HorizontalAlignment="Right" Content="Поиск" Height="40" Margin="0,0,10,0" Background="#FF5599E6" Foreground="White"/>
-            </DockPanel>
-
-            <DataGrid Grid.Row="2">
-                
-            </DataGrid>
-            
-        </Grid>
+        
        
 
         <!--Подвал-->
         <DockPanel Grid.ColumnSpan="9" Grid.Row="6" Background="#FFD8D6D6">
-            <TextBlock FontSize="40" VerticalAlignment="Center" Text="{Binding User.TestString}" Margin="20,0,0,0"/>
-            <Button Grid.Column="6" Grid.Row="6" Width="170" Height="70" Background="#FF5599E6" Content="Создать тест" FontSize="27" Foreground="White" Command="{Binding OpenCreateTestWindowCommand}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+            <TextBlock FontSize="40" VerticalAlignment="Center" Text="{Binding User.Email}" Margin="20,0,0,0"/>
+            <Button Name="CreateTestButton" Grid.Column="6" Grid.Row="6" Width="170" Height="70" Background="#FF5599E6" Content="Создать тест" FontSize="27" Foreground="White" Command="{Binding OpenCreateTestWindowCommand}" HorizontalAlignment="Right" Margin="0,0,10,0" Visibility="{Binding IsCreateTestButtonVisible, Converter={StaticResource BoolToVisibility}}"/>
         </DockPanel>
-
-        
 
     </Grid>
 </Window>

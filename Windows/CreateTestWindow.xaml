@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STS.Windows"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         Title="CreateTestWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -40,7 +41,7 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="640"/>
-                <ColumnDefinition Width="850"/>
+                <ColumnDefinition Width="860"/>
                 <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -53,12 +54,21 @@
                 <Button Content="Тесты" FontSize="60" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenApplicantWindowCommand}"/>
 
                 <Button  Content="Компании" FontSize="60" Margin="50,0,50,0" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenCompaniesListWindowCommand}"/>
-                <TextBlock  Text="Избранное" FontSize="60" VerticalAlignment="Center"/>
+                <Button  Content="Избранное" FontSize="60" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenFavoritesWindowComand}"/>
             </DockPanel>
 
             <DockPanel Grid.Column="2">
-                <Image Margin="40,0,15,0" Source="{StaticResource Profile}" VerticalAlignment="Center" Width="70" />
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding OpenProfileWindowCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <Image Margin="40,0,15,0" Source="{StaticResource Profile}" VerticalAlignment="Center" Width="70"/>
+
                 <TextBlock VerticalAlignment="Center" Text="Профиль" FontSize="30" HorizontalAlignment="Left"/>
+
             </DockPanel>
 
             <DockPanel HorizontalAlignment="Right" Grid.Column="3">

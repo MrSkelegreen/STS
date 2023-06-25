@@ -3,11 +3,13 @@ FN:\DZ\TRPO\KURSACH\Project\STS\App.xaml;;
 FN:\DZ\TRPO\KURSACH\Project\STS\ListboxTemplate.xaml;;
 FN:\DZ\TRPO\KURSACH\Project\STS\Windows\ApplicantMainWindow.xaml;;
 FN:\DZ\TRPO\KURSACH\Project\STS\Windows\AuthWindow.xaml;;
-FN:\DZ\TRPO\KURSACH\Project\STS\Windows\RegWindow.xaml;;
-FN:\DZ\TRPO\KURSACH\Project\STS\Windows\TestWindow.xaml;;
-FN:\DZ\TRPO\KURSACH\Project\STS\Windows\ResultWindow.xaml;;
-FN:\DZ\TRPO\KURSACH\Project\STS\Windows\CreateTestWindow.xaml;;
 FN:\DZ\TRPO\KURSACH\Project\STS\Windows\CompaniesListWindow.xaml;;
-FN:\DZ\TRPO\KURSACH\Project\STS\Windows\TestsOfCompaniesWindow.xaml;;
 FN:\DZ\TRPO\KURSACH\Project\STS\Windows\CreateCompanyWindow.xaml;;
+FN:\DZ\TRPO\KURSACH\Project\STS\Windows\CreateTestWindow.xaml;;
+FN:\DZ\TRPO\KURSACH\Project\STS\Windows\FavoritesWindow.xaml;;
+FN:\DZ\TRPO\KURSACH\Project\STS\Windows\ProfileWindow.xaml;;
+FN:\DZ\TRPO\KURSACH\Project\STS\Windows\RegWindow.xaml;;
+FN:\DZ\TRPO\KURSACH\Project\STS\Windows\ResultWindow.xaml;;
+FN:\DZ\TRPO\KURSACH\Project\STS\Windows\TestsOfCompaniesWindow.xaml;;
+FN:\DZ\TRPO\KURSACH\Project\STS\Windows\TestWindow.xaml;;
 

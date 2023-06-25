@@ -53,28 +53,7 @@ namespace STS.ViewModels
                 OnPropertyChanged("User");
             }
         }
-
-        private Uri _bookmarkUri;
-        public Uri BookmarkUri
-        {
-            get { return _bookmarkUri; }
-            set
-            {
-                _bookmarkUri = value;
-                OnPropertyChanged("BookmarkUri");
-            }
-        }
-
-        private int _itemTemplateFontSize;
-        public int ItemTemplateFontSize
-        {
-            get { return _itemTemplateFontSize; }
-            set
-            {
-                _itemTemplateFontSize = value;
-                OnPropertyChanged("ItemTemplateFontSize");
-            }
-        }
+      
 
         private IEnumerable<Test> _sortedTests;
         public IEnumerable<Test> SortedTests
@@ -146,6 +125,17 @@ namespace STS.ViewModels
             }
         }
 
+        private bool _isCreateTestButtonVisible;
+        public bool IsCreateTestButtonVisible
+        {
+            get { return _isCreateTestButtonVisible; }
+            set
+            {
+                _isCreateTestButtonVisible = value;
+                OnPropertyChanged("IsCreateTestButtonVisible");              
+            }
+        }
+
         public AMWvm(User user)
         {
             Tests = new ObservableCollection<Test>() {};
@@ -169,6 +159,8 @@ namespace STS.ViewModels
 
             SelectedSorting = Sortings[0];
             SelectedSubsorting = Subsortings[0];
+
+            IsCreateTestButtonVisible = User.Role;
 
             GetTests();    
 
@@ -289,13 +281,60 @@ namespace STS.ViewModels
                             if(company != null)
                             {
                                 test.CompanyTitle = company.Title;
-                            }                           
+                            }
+
+                            Favorite favoriteInDB = context.Favorites.FirstOrDefault(f => f.Owner == User.Id && f.Testid == test.Id);
+
+                            if (favoriteInDB != null)
+                            {
+                                test.BookmarkPath = "/Images/redBookmark.png";
+                            }
+                            else
+                            {
+                                test.BookmarkPath = "/Images/bookMarkImage.png";
+                            }
+                   
 
                             Tests.Add(test);                         
                         }
 
                         var comments = context.Tests.Include(t => t.TestComments).ToList();
                         var categories = context.Tests.Include(t => t.Category).ToList();
+
+                    }));
+            }
+        }
+
+        private RelayCommand _addToFavoritesCommand;
+        public RelayCommand AddToFavoritesCommand
+        {
+            get
+            {
+                return _addToFavoritesCommand ??
+                    (_addToFavoritesCommand = new RelayCommand(a =>
+                    {
+
+                        STSContext context = new STSContext();
+
+                        var selectedItem = (ListBoxItem)a;
+
+                        Test test = selectedItem.Content as Test;
+
+                        Favorite favoriteInDB = context.Favorites.FirstOrDefault(f => f.Owner == User.Id && f.Testid == test.Id);
+
+                        if (favoriteInDB != null)
+                        {
+                            context.Favorites.Remove(favoriteInDB);
+                        }
+                        else
+                        {
+                            Favorite favorite = new Favorite() { Owner = User.Id, Testid = test.Id };
+                            context.Favorites.Add(favorite);
+                        }
+                            
+                        context.SaveChanges();
+
+                        GetTestsCommand.Execute(SearchString);
 
                     }));
             }
@@ -317,7 +356,7 @@ namespace STS.ViewModels
                         TestWindow testWindow = new TestWindow(SelectedTest);
                         testWindow.DataContext = new TestVM(SelectedTest, User);
                         testWindow.Show();
-                        
+
                         foreach (Window item in App.Current.Windows)
                         {
                             if (item.GetType() == typeof(ApplicantMainWindow))
@@ -339,7 +378,7 @@ namespace STS.ViewModels
                     (_openCreateTestWindowCommand = new RelayCommand(o =>
                     {
 
-                        STSContext context = new STSContext();                       
+                        STSContext context = new STSContext();
 
                         CreateTestWindow ctw = new CreateTestWindow();
                         ctw.DataContext = new CreateTestVM(User);
@@ -384,22 +423,55 @@ namespace STS.ViewModels
             }
         }
 
-        private RelayCommand _addToFavoritesCommand;
-        public RelayCommand AddToFavoritesCommand
+        private RelayCommand _openFavoritesWindowComand;
+        public RelayCommand OpenFavoritesWindowComand
         {
             get
             {
-                return _addToFavoritesCommand ??
-                    (_addToFavoritesCommand = new RelayCommand(a =>
+                return _openFavoritesWindowComand ??
+                    (_openFavoritesWindowComand = new RelayCommand(o =>
                     {
 
                         STSContext context = new STSContext();
 
-                        var selectedItem = (ListBoxItem)a;
+                        FavoritesWindow favoritesWindow = new FavoritesWindow();
+                        favoritesWindow.DataContext = new FavoritesVM(User);
+                        favoritesWindow.Show();
 
-                        Test test = selectedItem.Content as Test;
+                        foreach (Window item in App.Current.Windows)
+                        {
+                            if (item.GetType() == typeof(ApplicantMainWindow))
+                            {
+                                item.Close();
+                            }
+                        }
 
-                        User.TestString = test.Title;
+                    }));
+            }
+        }
+
+        private RelayCommand _openProfileWindowCommand;
+        public RelayCommand OpenProfileWindowCommand
+        {
+            get
+            {
+                return _openProfileWindowCommand ??
+                    (_openProfileWindowCommand = new RelayCommand(o =>
+                    {
+
+                        STSContext context = new STSContext();
+
+                        ProfileWindow profileWindow = new ProfileWindow();
+                        profileWindow.DataContext = new ProfileVM(User);
+                        profileWindow.Show();
+
+                        foreach (Window item in App.Current.Windows)
+                        {
+                            if (item.GetType() == typeof(ApplicantMainWindow))
+                            {
+                                item.Close();
+                            }
+                        }
 
                     }));
             }
