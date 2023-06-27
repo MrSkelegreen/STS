@@ -98,7 +98,7 @@ namespace STS.Windows {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/STS;V1.0.0.0;component/windows/createtestwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/STS;component/windows/createtestwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Windows\CreateTestWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

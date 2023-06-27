@@ -138,7 +138,7 @@
 
         <!--Вопросы-->
         <Grid Grid.Row="3" Grid.ColumnSpan="3" Background="Beige" Margin="0,28,0,0" Grid.RowSpan="2">
-            <ListBox Name="LBox" ItemsSource="{Binding Questions}" AlternationCount="{Binding Questions.Count}">
+            <ListBox Name="LBox" ItemsSource="{Binding Questions}" AlternationCount="{Binding Questions.Count}" VirtualizingPanel.ScrollUnit="Pixel">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Width" Value="1800"></Setter>
@@ -155,16 +155,16 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="200"/>
-                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="70"/>
                             </Grid.RowDefinitions>
 
                             <TextBlock Name="QuestionId" FontSize="30" Text="{Binding LocalId, StringFormat={}{0}.}" HorizontalAlignment="Left" Margin="10,0,0,0"/>
                             <TextBlock Grid.Column="1" Text="{Binding Content}" FontSize="30" TextWrapping="Wrap"/>
 
-                            <DockPanel Grid.Column="1" Grid.Row="1" Margin="0,0,0,10" Width="500" HorizontalAlignment="Left">
-                                <TextBlock Text="Ответ:" FontSize="30"/>
-                                <TextBox FontSize="30" Margin="10,0,0,0" Text="{Binding UserAnswer}"/>
+                            <DockPanel Grid.Column="1" Grid.Row="1" Margin="0,10,0,10" Width="500" HorizontalAlignment="Left">
+                                <TextBlock Text="Ответ:" FontSize="30" Margin="0,10,0,0"/>
+                                <TextBox FontSize="30" Text="{Binding UserAnswer}" Margin="10,10,0,0"/>
                             </DockPanel>
                         </Grid>
                     </DataTemplate>

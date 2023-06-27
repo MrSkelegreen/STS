@@ -14,14 +14,29 @@ namespace STS.Windows
         {
             string name;
 
-            if (values[2] != string.Empty)
+            if(parameter == null)
             {
-                name = "Автор: " + values[0].ToString().Substring(0, 1) + "." + values[2].ToString().Substring(0, 1) + ". " + values[1];              
+                if (values[2] != string.Empty)
+                {
+                    name = "Автор: " + values[0].ToString().Substring(0, 1) + "." + values[2].ToString().Substring(0, 1) + ". " + values[1];
+                }
+                else
+                {
+                    name = "Автор: " + values[0].ToString().Substring(0, 1) + ". " + values[1];
+                }
             }
             else
             {
-                name = "Автор: " + values[0].ToString().Substring(0, 1) + ". " + values[1];
+                if (values[2] != string.Empty)
+                {
+                    name = "Владелец: " + values[0].ToString().Substring(0, 1) + "." + values[2].ToString().Substring(0, 1) + ". " + values[1];
+                }
+                else
+                {
+                    name = "Владелец: " + values[0].ToString().Substring(0, 1) + ". " + values[1];
+                }
             }
+           
 
             return name;
         }

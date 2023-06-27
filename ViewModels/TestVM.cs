@@ -83,7 +83,7 @@ namespace STS.ViewModels
                         var neededTest = context.Tests.FirstOrDefault(t => t.Id == SelectedTest.Id);                      
                         foreach (Question q in neededTest.Questions)
                         {
-                            q.LocalId += 1;
+                            q.LocalId = Questions.Count + 1;
                             Questions.Add(q);
                         }
                     }));
