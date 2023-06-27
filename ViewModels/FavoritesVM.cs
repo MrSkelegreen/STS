@@ -22,7 +22,6 @@ namespace STS.ViewModels
             {
                 _selectedTest = value;
                 OnPropertyChanged("SelectedTest");
-
                 OpenTestCommand.Execute(_selectedTest);
             }
         }
@@ -52,9 +51,7 @@ namespace STS.ViewModels
         public FavoritesVM(User user)
         {
             Tests = new ObservableCollection<Test>() { };
-
             User = user;
-
             GetTests();
         }
 
@@ -72,25 +69,17 @@ namespace STS.ViewModels
                     (_getTestsCommand = new RelayCommand(get =>
                     {
                         Tests.Clear();
-
                         var tests = new List<Test>();
-
-                        STSContext context = new STSContext();
-                        
-                         List<Favorite> favorites = context.Favorites.Include(f => f.Test.AuthorNavigation).Where(f => f.Owner == User.Id).ToList();      
-                        
+                        STSContext context = new STSContext();                      
+                        List<Favorite> favorites = context.Favorites.Include(f => f.Test.AuthorNavigation).Where(f => f.Owner == User.Id).ToList();                             
                         foreach (Favorite f in favorites)
                         {
                             tests.Add(f.Test);
-                        }
-
-                         //tests = context.Tests.Include(t => t.AuthorNavigation).Where(t => t.).OrderBy(t => t.Title).ToList();
-                                  
+                        }          
                         
                         foreach (Test test in tests)
                         {
                             int authorId = test.Author;
-
                             Company company = context.Companies.FirstOrDefault(c => c.Owner == authorId);
 
                             if (company != null)
@@ -108,14 +97,11 @@ namespace STS.ViewModels
                             {
                                 test.BookmarkPath = "/Images/bookMarkImage.png";
                             }
-
-
                             Tests.Add(test);
-                        }
 
+                        }
                         var comments = context.Tests.Include(t => t.TestComments).ToList();
                         var categories = context.Tests.Include(t => t.Category).ToList();
-
                     }));
             }
         }
@@ -128,15 +114,11 @@ namespace STS.ViewModels
                 return _openTestCommand ??
                     (_openTestCommand = new RelayCommand(t =>
                     {
-
                         STSContext context = new STSContext();
-
                         var qs = context.Tests.Include(t => t.Questions).ToList();
-
                         TestWindow testWindow = new TestWindow(SelectedTest);
                         testWindow.DataContext = new TestVM(SelectedTest, User);
                         testWindow.Show();
-
                         foreach (Window item in App.Current.Windows)
                         {
                             if (item.GetType() == typeof(FavoritesWindow))
@@ -144,7 +126,6 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }
@@ -157,13 +138,10 @@ namespace STS.ViewModels
                 return _openCompaniesListWindowCommand ??
                     (_openCompaniesListWindowCommand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         CompaniesListWindow clw = new CompaniesListWindow();
                         clw.DataContext = new CompaniesVM(User);
                         clw.Show();
-
                         foreach (Window item in App.Current.Windows)
                         {
                             if (item.GetType() == typeof(FavoritesWindow))
@@ -171,7 +149,6 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }
@@ -206,13 +183,9 @@ namespace STS.ViewModels
                 return _addToFavoritesCommand ??
                     (_addToFavoritesCommand = new RelayCommand(a =>
                     {
-
                         STSContext context = new STSContext();
-
                         var selectedItem = (ListBoxItem)a;
-
                         Test test = selectedItem.Content as Test;
-
                         Favorite favoriteInDB = context.Favorites.FirstOrDefault(f => f.Owner == User.Id && f.Testid == test.Id);
 
                         if (favoriteInDB != null)
@@ -224,15 +197,11 @@ namespace STS.ViewModels
                             Favorite favorite = new Favorite() { Owner = User.Id, Testid = test.Id };
                             context.Favorites.Add(favorite);
                         }
-
                         context.SaveChanges();
-
                         GetTestsCommand.Execute(null);
-
                     }));
             }
         }
-
 
         private RelayCommand _openProfileWindowCommand;
         public RelayCommand OpenProfileWindowCommand
@@ -242,13 +211,10 @@ namespace STS.ViewModels
                 return _openProfileWindowCommand ??
                     (_openProfileWindowCommand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         ProfileWindow profileWindow = new ProfileWindow();
                         profileWindow.DataContext = new ProfileVM(User);
                         profileWindow.Show();
-
                         foreach (Window item in App.Current.Windows)
                         {
                             if (item.GetType() == typeof(FavoritesWindow))
@@ -256,7 +222,6 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }

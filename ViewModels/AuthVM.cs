@@ -48,20 +48,14 @@ namespace STS.ViewModels
         public AuthVM()
         {
             _isWarningVisible=false;
-
             STSContext context = new STSContext();
             _user = new User();
-
-            _user.Email = "1";
-            _password = "1";
-            //_user.pw = string.Empty;
-
-            
+            _user.Email = string.Empty;
+            _password = string.Empty;                    
         }
 
         //Вход
         private RelayCommand _loginCommand; 
-
         public RelayCommand LoginCommand
         {
             get
@@ -70,18 +64,14 @@ namespace STS.ViewModels
                     (_loginCommand = new RelayCommand(password =>
                     {
                         _user.pw = (password as PasswordBox).Password;
-
-
                         STSContext context = new STSContext();
-
                         var user = context.Users.SingleOrDefault(x => x.Email == _user.Email && x.pw == _user.pw);
 
                         if (user != null)
                         {
                             ApplicantMainWindow amw = new ApplicantMainWindow();
                             amw.DataContext = new AMWvm(user);
-                            amw.Show();
-                            //amw.DataContext = new AMWvm(user);
+                            amw.Show();                           
                             foreach (Window item in App.Current.Windows)
                             {
                                 if (item.GetType() == typeof(AuthWindow))
@@ -93,13 +83,10 @@ namespace STS.ViewModels
                         else
                         {                            
                             IsWarningVisible = true;
-                        }
-                        
+                        }                      
                     }));
             }
         }
-
-
         //Открыть регистрацию
         private RelayCommand _openRegWindow;
         public RelayCommand OpenRegWindow

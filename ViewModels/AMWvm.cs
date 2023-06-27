@@ -18,7 +18,6 @@ namespace STS.ViewModels
 {
     class AMWvm : BaseViewModel
     {
-
         private Test _selectedTest;
         public Test SelectedTest
         {
@@ -53,8 +52,7 @@ namespace STS.ViewModels
                 OnPropertyChanged("User");
             }
         }
-      
-
+     
         private IEnumerable<Test> _sortedTests;
         public IEnumerable<Test> SortedTests
         {
@@ -138,10 +136,8 @@ namespace STS.ViewModels
 
         public AMWvm(User user)
         {
-            Tests = new ObservableCollection<Test>() {};
-           
+            Tests = new ObservableCollection<Test>() {};           
             User = user;
-
             SearchString = string.Empty;
 
             Sortings = new List<string>()
@@ -159,11 +155,8 @@ namespace STS.ViewModels
 
             SelectedSorting = Sortings[0];
             SelectedSubsorting = Subsortings[0];
-
             IsCreateTestButtonVisible = User.Role;
-
             GetTests();    
-
         }
 
         public void GetTests()
@@ -181,19 +174,15 @@ namespace STS.ViewModels
                     (_getTestsCommand = new RelayCommand(get =>
                     {
                         Tests.Clear();
-                        
                         var tests = new List<Test>();
-
                         STSContext context = new STSContext();
-
-                        
+                       
                         string ss = get.ToString();
                         if (ss != null)
                         {
                             SearchString = ss;
                         }
                         
-
                         if(SearchString != "")
                         {
                             switch (SelectedSorting)
@@ -271,7 +260,6 @@ namespace STS.ViewModels
                             }
                         }
                                                                  
-
                         foreach (Test test in tests)
                         {
                             int authorId = test.Author;
@@ -294,17 +282,15 @@ namespace STS.ViewModels
                                 test.BookmarkPath = "/Images/bookMarkImage.png";
                             }
                    
-
                             Tests.Add(test);                         
                         }
-
                         var comments = context.Tests.Include(t => t.TestComments).ToList();
                         var categories = context.Tests.Include(t => t.Category).ToList();
-
                     }));
             }
         }
 
+        //Добавление в избранное
         private RelayCommand _addToFavoritesCommand;
         public RelayCommand AddToFavoritesCommand
         {
@@ -313,13 +299,9 @@ namespace STS.ViewModels
                 return _addToFavoritesCommand ??
                     (_addToFavoritesCommand = new RelayCommand(a =>
                     {
-
                         STSContext context = new STSContext();
-
                         var selectedItem = (ListBoxItem)a;
-
                         Test test = selectedItem.Content as Test;
-
                         Favorite favoriteInDB = context.Favorites.FirstOrDefault(f => f.Owner == User.Id && f.Testid == test.Id);
 
                         if (favoriteInDB != null)
@@ -333,13 +315,11 @@ namespace STS.ViewModels
                         }
                             
                         context.SaveChanges();
-
                         GetTestsCommand.Execute(SearchString);
-
                     }));
             }
         }
-
+        //Открытие теста
         private RelayCommand _openTestCommand;
         public RelayCommand OpenTestCommand
         {
@@ -348,11 +328,8 @@ namespace STS.ViewModels
                 return _openTestCommand ??
                     (_openTestCommand = new RelayCommand(t =>
                     {
-
                         STSContext context = new STSContext();
-
                         var qs = context.Tests.Include(t => t.Questions).ToList();
-
                         TestWindow testWindow = new TestWindow(SelectedTest);
                         testWindow.DataContext = new TestVM(SelectedTest, User);
                         testWindow.Show();
@@ -364,11 +341,10 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }
-
+        //Открытие окна создания теста
         private RelayCommand _openCreateTestWindowCommand;
         public RelayCommand OpenCreateTestWindowCommand
         {
@@ -377,9 +353,7 @@ namespace STS.ViewModels
                 return _openCreateTestWindowCommand ??
                     (_openCreateTestWindowCommand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         CreateTestWindow ctw = new CreateTestWindow();
                         ctw.DataContext = new CreateTestVM(User);
                         ctw.Show();
@@ -391,11 +365,10 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }
-
+        //Открытие окна со списком компаний
         private RelayCommand _openCompaniesListWindowCommand;
         public RelayCommand OpenCompaniesListWindowCommand
         {
@@ -404,9 +377,7 @@ namespace STS.ViewModels
                 return _openCompaniesListWindowCommand ??
                     (_openCompaniesListWindowCommand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         CompaniesListWindow clw = new CompaniesListWindow();
                         clw.DataContext = new CompaniesVM(User);
                         clw.Show();
@@ -418,11 +389,10 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }
-
+        //Открытие окна избранного
         private RelayCommand _openFavoritesWindowComand;
         public RelayCommand OpenFavoritesWindowComand
         {
@@ -431,9 +401,7 @@ namespace STS.ViewModels
                 return _openFavoritesWindowComand ??
                     (_openFavoritesWindowComand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         FavoritesWindow favoritesWindow = new FavoritesWindow();
                         favoritesWindow.DataContext = new FavoritesVM(User);
                         favoritesWindow.Show();
@@ -445,11 +413,10 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }
-
+        //Открытие окна профиля
         private RelayCommand _openProfileWindowCommand;
         public RelayCommand OpenProfileWindowCommand
         {
@@ -458,9 +425,7 @@ namespace STS.ViewModels
                 return _openProfileWindowCommand ??
                     (_openProfileWindowCommand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         ProfileWindow profileWindow = new ProfileWindow();
                         profileWindow.DataContext = new ProfileVM(User);
                         profileWindow.Show();
@@ -472,38 +437,8 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
-        }
-        /*private RelayCommand _testSelectionChangedCommand;
-
-        public RelayCommand TestSelectionChangedCommand
-        {
-            get
-            {
-                return _testSelectionChangedCommand ??
-                    (_testSelectionChangedCommand = new RelayCommand(t =>
-                    {
-
-                        STSContext context = new STSContext();
-
-                        TestWindow testWindow = new TestWindow();
-                        //amw.DataContext = this;
-                        testWindow.Show();
-                        //testWindow.DataContext = new AMWvm(user);
-                        foreach (Window item in App.Current.Windows)
-                        {
-                            if (item.GetType() == typeof(ApplicantMainWindow))
-                            {
-                                item.Close();
-                            }
-                        }
-
-                    }));
-            }
-        }*/
+        }    
     }
-
-
 }

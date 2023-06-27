@@ -17,33 +17,18 @@ public partial class STSContext : DbContext
     }
 
     public virtual DbSet<Category> Categories { get; set; }
-
     public virtual DbSet<Comment> Comments { get; set; }
-
     public virtual DbSet<Commentanswer> Commentanswers { get; set; }
-
     public virtual DbSet<Company> Companies { get; set; }
-
     public virtual DbSet<CtAnswerComment> CtAnswerComments { get; set; }
-
     public virtual DbSet<Favorite> Favorites { get; set; }
-
     public virtual DbSet<Question> Questions { get; set; }
-
     public virtual DbSet<QuestionComment> QuestionComments { get; set; }
-
-   // public virtual DbSet<Questiontype> Questiontypes { get; set; }
-
     public virtual DbSet<Result> Results { get; set; }
-
     public virtual DbSet<Test> Tests { get; set; }
-
     public virtual DbSet<TestComment> TestComments { get; set; }
-
     public virtual DbSet<TestTestgroup> TestTestgroups { get; set; }
-
     public virtual DbSet<Testgroup> Testgroups { get; set; }
-
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -182,17 +167,11 @@ public partial class STSContext : DbContext
             entity.Property(e => e.Topic)
                 .HasMaxLength(200)
                 .HasDefaultValueSql("'Без темы'::character varying")
-                .HasColumnName("topic");
-            //entity.Property(e => e.Typeid).HasColumnName("typeid");
+                .HasColumnName("topic");         
 
             entity.HasOne(d => d.Test).WithMany(p => p.Questions)
                 .HasForeignKey(d => d.Testid)
-                .HasConstraintName("question_test");
-
-            /*entity.HasOne(d => d.Typeid).WithMany(p => p.Questions)
-                .HasForeignKey(d => d.Typeid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("question_fk");*/
+                .HasConstraintName("question_test");     
         });
 
         modelBuilder.Entity<QuestionComment>(entity =>
@@ -215,18 +194,7 @@ public partial class STSContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("question_comment_fk_1");
         });
-
-        /*modelBuilder.Entity<Questiontype>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("questiontype_pk");
-
-            entity.ToTable("questiontype", "STS");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Description).HasColumnName("description");
-            entity.Property(e => e.Title).HasColumnName("title");
-        });*/
-
+      
         modelBuilder.Entity<Result>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("result_pk");
@@ -374,6 +342,5 @@ public partial class STSContext : DbContext
 
         OnModelCreatingPartial(modelBuilder);
     }
-
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

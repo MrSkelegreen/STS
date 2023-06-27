@@ -11,7 +11,5 @@
             <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Text="Ваш результат: " FontSize="15"/>
             <TextBlock Name="ResultTextBlock" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="15"/>
         </DockPanel>
-        
-
     </Grid>
 </Window>

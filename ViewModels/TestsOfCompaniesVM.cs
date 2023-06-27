@@ -64,11 +64,8 @@ namespace STS.ViewModels
         public TestsOfCompaniesVM(User user, Company company)
         {
             User = user;
-
             Tests = new ObservableCollection<Test>() { };
-
             SelectedCompany = company;
-
             GetTests();
         }
 
@@ -86,23 +83,17 @@ namespace STS.ViewModels
                 return _getTestsCommand ??
                     (_getTestsCommand = new RelayCommand(get =>
                     {
-
                         Tests.Clear();
-
                         var tests = new List<Test>();
-
                         STSContext context = new STSContext();
-
                         User user = context.Users.FirstOrDefault(u => u.Id == SelectedCompany.Owner);
 
                         if(user != null)
                         {
                             tests = context.Tests.Include(t => t.AuthorNavigation).OrderBy(t => t.Id).Where(t => t.Author == user.Id).ToList();                           
-
                             foreach (Test test in tests)
                             {
                                 Favorite favoriteInDB = context.Favorites.FirstOrDefault(f => f.Owner == User.Id && f.Testid == test.Id);
-
                                 if (favoriteInDB != null)
                                 {
                                     test.BookmarkPath = "/Images/redBookmark.png";
@@ -120,8 +111,7 @@ namespace STS.ViewModels
                         else
                         {
                             OpenApplicantWindowCommand.Execute(User);
-                        }
-                       
+                        }                   
                     }));
             }
         }
@@ -134,15 +124,10 @@ namespace STS.ViewModels
                 return _addToFavoritesCommand ??
                     (_addToFavoritesCommand = new RelayCommand(a =>
                     {
-
                         STSContext context = new STSContext();
-
                         var selectedItem = (ListBoxItem)a;
-
                         Test test = selectedItem.Content as Test;
-
                         Favorite favoriteInDB = context.Favorites.FirstOrDefault(f => f.Owner == User.Id && f.Testid == test.Id);
-
                         if (favoriteInDB != null)
                         {
                             context.Favorites.Remove(favoriteInDB);
@@ -154,9 +139,7 @@ namespace STS.ViewModels
                         }
 
                         context.SaveChanges();
-
                         GetTestsCommand.Execute(null);
-
                     }));
             }
         }
@@ -169,11 +152,8 @@ namespace STS.ViewModels
                 return _openTestCommand ??
                     (_openTestCommand = new RelayCommand(t =>
                     {
-
                         STSContext context = new STSContext();
-
                         var qs = context.Tests.Include(t => t.Questions).ToList();
-
                         TestWindow testWindow = new TestWindow(SelectedTest);
                         testWindow.DataContext = new TestVM(SelectedTest, User);
                         testWindow.Show();
@@ -185,7 +165,6 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }
@@ -220,9 +199,7 @@ namespace STS.ViewModels
                 return _openCompaniesListWindowCommand ??
                     (_openCompaniesListWindowCommand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         CompaniesListWindow clw = new CompaniesListWindow();
                         clw.DataContext = new CompaniesVM(User);
                         clw.Show();
@@ -234,7 +211,6 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }
@@ -247,9 +223,7 @@ namespace STS.ViewModels
                 return _openFavoritesWindowComand ??
                     (_openFavoritesWindowComand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         FavoritesWindow favoritesWindow = new FavoritesWindow();
                         favoritesWindow.DataContext = new FavoritesVM(User);
                         favoritesWindow.Show();
@@ -261,7 +235,6 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }
@@ -274,9 +247,7 @@ namespace STS.ViewModels
                 return _openProfileWindowCommand ??
                     (_openProfileWindowCommand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         ProfileWindow profileWindow = new ProfileWindow();
                         profileWindow.DataContext = new ProfileVM(User);
                         profileWindow.Show();
@@ -288,7 +259,6 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }

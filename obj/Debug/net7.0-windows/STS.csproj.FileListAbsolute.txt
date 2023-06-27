@@ -85,8 +85,6 @@ N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\ApplicantMainWin
 N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\RegWindow.g.cs
 N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\RegWindow.baml
 N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\App.baml
-N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\ListboxTemplate.g.cs
-N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\ListboxTemplate.baml
 N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
 N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\TestWindow.g.cs
 N:\DZ\TRPO\KURSACH\Project\STS\obj\Debug\net7.0-windows\Windows\TestWindow.baml

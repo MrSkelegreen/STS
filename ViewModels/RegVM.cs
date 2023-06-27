@@ -34,20 +34,7 @@ namespace STS.ViewModels
                 _isWarningVisible = value;
                 OnPropertyChanged("IsWarningVisible");
             }
-        }
-
-        /*private bool _role;
-        public bool Role
-        {
-            get { return _role; }
-            set
-            {
-                _role = value;
-                ChangeRole();
-                OnPropertyChanged("Role");
-               
-            }
-        }*/
+        }   
 
         private string _warningText;
         public string WarningText
@@ -64,23 +51,29 @@ namespace STS.ViewModels
         public ObservableCollection<string> Roles
         {
             get { return _roles; }
-            set {_roles = value;}
+            set 
+            {
+                _roles = value;
+                OnPropertyChanged("Roles");
+            }
         }
 
-        private string _role;
-        public string Role
+        private string _selectedRole;
+        public string SelectedRole
         {
-            get { return _role; }
-            set { _role = value; }
+            get { return _selectedRole; }
+            set 
+            {
+                _selectedRole = value;
+                OnPropertyChanged("SelectedRole");
+            }
         }
 
         public RegVM()
         {
             _isWarningVisible = false;
-
             STSContext context = new STSContext();
             _user = new User();
-
             _user.Email = string.Empty;
             _user.pw = string.Empty;           
 
@@ -90,11 +83,10 @@ namespace STS.ViewModels
                 "Работодатель"
             };
 
-            _role = "Соискатель";
-
+            SelectedRole = Roles[0];
             _warningText= "";
         }
-
+        //Регистрация
         private RelayCommand _regCommand;
         public RelayCommand RegCommand
         {
@@ -104,11 +96,8 @@ namespace STS.ViewModels
                    (_regCommand = new RelayCommand(password =>
                    {
                        _user.pw = ((PasswordBox)password).Password;
-
                        STSContext context = new STSContext();
-
                        var user = context.Users.SingleOrDefault(x => x.Email == _user.Email);
-
                        if(_user.Email == string.Empty || _user.pw == string.Empty || _user.Firstname == string.Empty || _user.Lastname == string.Empty)
                        {
                            WarningText = "Введены некорректные данные";
@@ -118,18 +107,15 @@ namespace STS.ViewModels
                        {
                            if (user == null)
                            {
-                               
-                               ApplicantMainWindow amw = new ApplicantMainWindow();
-                               amw.DataContext = new AMWvm(User);
-                            
-                              if (Role == "Работодатель")
+                                                                                      
+                              if (SelectedRole == Roles[1])
                                {
-                                   _user.Role = true;
+                                   User.Role = true;
                                }
-
                                context.Users.Add(User);
                                context.SaveChanges();
-
+                               ApplicantMainWindow amw = new ApplicantMainWindow();
+                               amw.DataContext = new AMWvm(User);
                                amw.Show();
                                foreach (Window item in App.Current.Windows)
                                {
@@ -144,14 +130,11 @@ namespace STS.ViewModels
                                WarningText = "Пользователь с таким email уже существует";
                                IsWarningVisible = true;
                            }
-                       }
-
-                      
-
+                       }                     
                    }));
             }
         }
-
+        //Открытие окна входа
         private RelayCommand _openLogin;
         public RelayCommand OpenLogin
         {
@@ -161,7 +144,6 @@ namespace STS.ViewModels
                    (_openLogin = new RelayCommand(open =>
                    {
                        AuthWindow aw = new AuthWindow();
-
                        aw.Show();
                        foreach (Window item in App.Current.Windows)
                        {
@@ -170,32 +152,8 @@ namespace STS.ViewModels
                                item.Close();
                            }
                        }
-
                    }));
             }
-        }
-
-        private RelayCommand _selectedRoleCommand;
-        public RelayCommand SelectedRoleCommand
-        {
-            get
-            {
-                return _selectedRoleCommand ??
-                    (_selectedRoleCommand = new RelayCommand(role =>
-                    {
-                        User.Email = "lal";
-                        //OnPropertyChanged(_user.Email);
-                    }));
-            }
-        }
-
-        public void ChangeRole()
-        {
-           // _user.Role = _role == false ? _role = true : _role = false;
-             
-            //_user.Email = "lol";
-            //SelectedRoleCommand.Execute(null);
-        }
-
+        }       
     }
 }

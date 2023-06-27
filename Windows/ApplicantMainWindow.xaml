@@ -5,10 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STS.Windows"
         xmlns:c="clr-namespace:STS" 
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        
-        mc:Ignorable="d"
-        
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"    
+        mc:Ignorable="d"    
         Title="ApplicantMainWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
@@ -35,9 +33,7 @@
             </Style>
 
             <local:NameConverter x:Key="NameConverter"/>
-            
             <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
-
         </ResourceDictionary>
     </Window.Resources>
     
@@ -46,7 +42,6 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="200"/>
-            
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -56,10 +51,9 @@
             <RowDefinition Height="621*"/>
             <RowDefinition Height="102*"/>
         </Grid.RowDefinitions>
-
+        
         <!--Шапка-->
         <Grid Name="Toolbar" Grid.Row="0" Grid.ColumnSpan="9" Background="#FF7D7777" MouseDown="Toolbar_MouseDown">
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="640"/>
                 <ColumnDefinition Width="860"/>
@@ -77,7 +71,6 @@
             </DockPanel>
 
             <DockPanel Grid.Column="2">
-
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <i:InvokeCommandAction Command="{Binding OpenProfileWindowCommand}"/>
@@ -85,9 +78,7 @@
                 </i:Interaction.Triggers>
 
                 <Image Margin="40,0,15,0" Source="{StaticResource Profile}" VerticalAlignment="Center" Width="70"/>
-
                 <TextBlock VerticalAlignment="Center" Text="Профиль" FontSize="30" HorizontalAlignment="Left"/>
-
             </DockPanel>
 
             <DockPanel HorizontalAlignment="Right" Grid.Column="3">
@@ -101,7 +92,6 @@
 
         <!--Сортировка и поиск-->
         <Grid Grid.Column="1" Grid.Row="2"  Background="#FFE8DCDC">
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1180"/>
                 <ColumnDefinition/>
@@ -120,79 +110,66 @@
         </Grid>
           
         <!--Тесты-->
-        
-            <ListBox Name="LBox"  Grid.Column="1" Grid.Row="3" ItemsSource="{Binding Tests}" SelectedItem="{Binding SelectedTest}" VirtualizingPanel.ScrollUnit="Pixel" Margin="0,10,0,10">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Background="Bisque">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="300"/>
-                                <ColumnDefinition Width="1000"/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="150"/>
-                            </Grid.ColumnDefinitions>
+        <ListBox Name="LBox"  Grid.Column="1" Grid.Row="3" ItemsSource="{Binding Tests}" SelectedItem="{Binding SelectedTest}" VirtualizingPanel.ScrollUnit="Pixel" Margin="0,10,0,10">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Background="Bisque">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="1000"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition Height="200"/>
-                                <RowDefinition Height="Auto"/>
-                                
-                            </Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                            <TextBlock Text="{Binding Title}" Grid.Column="0" Grid.ColumnSpan="2" FontSize="35"/>
-                            <TextBlock Grid.Row="1" Text="{Binding Description}" Grid.Column="1" FontSize="18" TextWrapping="Wrap" Background="White" Margin="10,10,10,0"/>
-                            <Image Grid.Row="1" Source="{Binding Image}"/>
+                        <TextBlock Text="{Binding Title}" Grid.Column="0" Grid.ColumnSpan="2" FontSize="35"/>
+                        <TextBlock Grid.Row="1" Text="{Binding Description}" Grid.Column="1" FontSize="18" TextWrapping="Wrap" Background="White" Margin="10,10,10,0"/>
+                        <Image Grid.Row="1" Source="{Binding Image}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding CompanyTitle}" TextWrapping="Wrap" HorizontalAlignment="Right" TextDecorations="Underline" Style="{StaticResource ListBoxItemFontSize}" Margin="0,0,10,0" VerticalAlignment="Bottom"/>
 
-                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding CompanyTitle}" TextWrapping="Wrap" HorizontalAlignment="Right" TextDecorations="Underline" Style="{StaticResource ListBoxItemFontSize}" Margin="0,0,10,0" VerticalAlignment="Bottom"/>
+                        <DockPanel Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Right">
+                            <TextBlock TextDecorations="Underline" Margin="10" Style="{StaticResource ListBoxItemFontSize}">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                        <Binding Path="AuthorNavigation.Firstname"/>
+                                        <Binding Path="AuthorNavigation.Lastname"/>
+                                        <Binding Path="AuthorNavigation.Patronymic"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
 
+                            <TextBlock DockPanel.Dock="Left" Text="{Binding Category.Title}" TextDecorations="Underline" Margin="10" Style="{StaticResource ListBoxItemFontSize}" TextWrapping="WrapWithOverflow"/>
 
+                            <TextBlock Margin="10" Style="{StaticResource ListBoxItemFontSize}" DockPanel.Dock="Left">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}Сложность: {0}">
+                                        <Binding Path="Difficulty"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
 
-                            <DockPanel Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Right">
+                            <TextBlock Margin="10" Style="{StaticResource ListBoxItemFontSize}" DockPanel.Dock="Left">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}Дата: {0:dd.MM.yyyy}">
+                                        <Binding Path="Creationdate"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DockPanel>
 
-                                <TextBlock TextDecorations="Underline" Margin="10" Style="{StaticResource ListBoxItemFontSize}">
-                                    <TextBlock.Text>
-                                        <MultiBinding Converter="{StaticResource NameConverter}">
-                                            <Binding Path="AuthorNavigation.Firstname"/>
-                                            <Binding Path="AuthorNavigation.Lastname"/>
-                                            <Binding Path="AuthorNavigation.Patronymic"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
+                        <Button Name="FavButton" Grid.Column="3"  Width="25" Height="25" HorizontalAlignment="Right" Style="{StaticResource FavButtonStyle}" Command="{Binding DataContext.AddToFavoritesCommand, RelativeSource={RelativeSource AncestorType=Window, AncestorLevel=1}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}}}">
+                            <Image Source="{Binding BookmarkPath}" Grid.Column="3"  Width="25" Height="25" HorizontalAlignment="Right"/>
+                        </Button>
 
-                                <TextBlock DockPanel.Dock="Left" Text="{Binding Category.Title}" TextDecorations="Underline" Margin="10" Style="{StaticResource ListBoxItemFontSize}" TextWrapping="WrapWithOverflow"/>
-
-                                <TextBlock Margin="10" Style="{StaticResource ListBoxItemFontSize}" DockPanel.Dock="Left">
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}Сложность: {0}">
-                                            <Binding Path="Difficulty"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-
-                                <TextBlock Margin="10" Style="{StaticResource ListBoxItemFontSize}" DockPanel.Dock="Left">
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}Дата: {0:dd.MM.yyyy}">
-                                            <Binding Path="Creationdate"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </DockPanel>
-
-
-                            <Button Name="FavButton" Grid.Column="3"  Width="25" Height="25" HorizontalAlignment="Right" Style="{StaticResource FavButtonStyle}" Command="{Binding DataContext.AddToFavoritesCommand, RelativeSource={RelativeSource AncestorType=Window, AncestorLevel=1}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}}}">
-                                <Image Source="{Binding BookmarkPath}" Grid.Column="3"  Width="25" Height="25" HorizontalAlignment="Right"/>
-                            </Button>
-
-
-
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        
-
-        
-       
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <!--Подвал-->
         <DockPanel Grid.ColumnSpan="9" Grid.Row="6" Background="#FFD8D6D6">

@@ -53,8 +53,6 @@
     </Window.Resources>
 
     <Grid Background="LightGray">
-        
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="230"/>
@@ -99,13 +97,11 @@
 
         <DockPanel Name="RoleSelecter" Grid.Column="1" Grid.Row="12">
             <TextBlock Text="Кто вы?" VerticalAlignment="Center"/>
-            <ComboBox Name="roleBox"  Margin="15,0,0,0" VerticalContentAlignment="Center" ItemsSource="{Binding Path=Roles}" SelectedItem="{Binding Path=Role}"/> 
+            <ComboBox Name="roleBox"  Margin="15,0,0,0" VerticalContentAlignment="Center" ItemsSource="{Binding Path=Roles}" SelectedItem="{Binding Path=SelectedRole}"/> 
         </DockPanel>
 
         <TextBlock  Grid.Row="13" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding WarningText}" FontSize="13" Foreground="#FFDC0A0A" Visibility="{Binding IsWarningVisible, Converter={StaticResource BoolToVisibility}}"/>
-
         <Button Grid.Column="1" Grid.Row="14" VerticalAlignment="Center" Height="60" Content="Зарегестрироваться" FontSize="23"  Command="{Binding RegCommand}" CommandParameter="{Binding ElementName=pwBox}" Background="#FF5599E6" Foreground="White"/>
-
         <Button Grid.Column="1" Grid.Row="15" VerticalAlignment="Center" Height="30" Width="200" Content="Войти" FontSize="18" Command="{Binding OpenLogin}"/>
 
     </Grid>

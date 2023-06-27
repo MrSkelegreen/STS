@@ -76,7 +76,6 @@ namespace STS.ViewModels
             GetCompanies();
             User = user;
             IsWarningVisible = false;
-
             IsCreateCompanyButtonVisible = User.Role;
         }
 
@@ -94,20 +93,13 @@ namespace STS.ViewModels
                 return _getCompaniesCommand ??
                     (_getCompaniesCommand = new RelayCommand(get =>
                     {
-
                         var companies = new List<Company>();
-
                         STSContext context = new STSContext();
-
                         companies = context.Companies.Include(t => t.OwnerNavigation).OrderBy(t => t.Id).ToList();                       
-
                         foreach (Company company in companies)
                         {
                             Companies.Add(company);
-                        }
-                       
-
-
+                        }                     
                     }));
             }
         }
@@ -121,9 +113,7 @@ namespace STS.ViewModels
                     (_openCreateCompanyWindowCommand = new RelayCommand(open =>
                     {
                         STSContext context = new STSContext();
-
                         Company company = context.Companies.FirstOrDefault(c => c.Owner == User.Id);
-
                         if (company == null)
                         {
                             CreateCompanyWindow ccw = new CreateCompanyWindow();
@@ -133,12 +123,11 @@ namespace STS.ViewModels
                         else
                         {
                             IsWarningVisible = true;
-                        }
-                                                                
+                        }                                                             
                     }));
             }
         }
-
+        //Открытие главного окна
         private RelayCommand _openApplicantWindowCommand;
         public RelayCommand OpenApplicantWindowCommand
         {
@@ -232,10 +221,8 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }
-
     }
 }

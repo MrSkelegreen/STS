@@ -11,8 +11,7 @@ using System.Windows;
 namespace STS.ViewModels
 {
     internal class ProfileVM : BaseViewModel
-    {
-        
+    {  
         private User _user;
         public User User
         {
@@ -38,9 +37,7 @@ namespace STS.ViewModels
         public ProfileVM(User user)
         {
             User = user;
-
             StringRole = User.Role ? "Работодатель" : "Соискатель";
-
         }
 
         private RelayCommand _openApplicantWindowCommand;
@@ -100,9 +97,7 @@ namespace STS.ViewModels
                 return _openFavoritesWindowComand ??
                     (_openFavoritesWindowComand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         FavoritesWindow favoritesWindow = new FavoritesWindow();
                         favoritesWindow.DataContext = new FavoritesVM(User);
                         favoritesWindow.Show();
@@ -114,7 +109,6 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }

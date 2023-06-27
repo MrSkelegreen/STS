@@ -14,11 +14,8 @@
                 <Setter Property="FontSize" Value="20"/>
             </Style>
             <local:NameConverter x:Key="NameConverter"/>
-
             <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
-
         </ResourceDictionary>
-
     </Window.Resources>
 
     <Grid>
@@ -50,15 +47,12 @@
             <TextBlock  Grid.ColumnSpan="3" Text="Система тестирования соискателей" VerticalAlignment="Center" FontSize="30" Margin="130,0,0,0" Height="40"/>
 
             <DockPanel Grid.Column="1">
-
                 <Button Content="Тесты" FontSize="60" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenApplicantWindowCommand}"/>
-
                 <Button  Content="Компании" FontSize="60" Margin="50,0,50,0" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenCompaniesListWindowCommand}"/>
                 <Button  Content="Избранное" FontSize="60" VerticalAlignment="Center" Background="#FF7D7777" Command="{Binding OpenFavoritesWindowComand}"/>
             </DockPanel>
 
             <DockPanel Grid.Column="2">
-
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <i:InvokeCommandAction Command="{Binding OpenProfileWindowCommand}"/>
@@ -66,9 +60,7 @@
                 </i:Interaction.Triggers>
 
                 <Image Margin="40,0,15,0" Source="{StaticResource Profile}" VerticalAlignment="Center" Width="70"/>
-
                 <TextBlock VerticalAlignment="Center" Text="Профиль" FontSize="30" HorizontalAlignment="Left"/>
-
             </DockPanel>
 
             <DockPanel HorizontalAlignment="Right" Grid.Column="3">
@@ -108,7 +100,6 @@
             </TextBlock>
 
             <Image Source="https://papik.pro/uploads/posts/2022-01/1642329969_39-papik-pro-p-testirovanie-klipart-42.png" Grid.Column="1" Grid.Row="1"/>
-
             <TextBox Name="DescriptionBox" Grid.Column="2" Grid.Row="1" Background="White" TextWrapping="Wrap"  Text="{Binding DevelopingTest.Description}" FontSize="20"/>
             <TextBlock Grid.Column="2"  Grid.Row="1" IsHitTestVisible="False"  FontSize="20" Foreground="Gray" Text="Описание" VerticalAlignment="Center" Margin="10,0,0,0">
                 <TextBlock.Style>
@@ -138,7 +129,6 @@
                 <DockPanel>
                     <TextBlock Style="{StaticResource TestInfoTextSize}"  TextWrapping="Wrap" Margin="0,10,0,0" Text="Категория:"/>
                     <ComboBox Margin="5,10,5,0" ItemsSource="{Binding Categories}" DisplayMemberPath="Title" SelectedItem="{Binding SelectedCategory}">
-
                     </ComboBox>
                 </DockPanel>
                                 
@@ -176,7 +166,6 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Background="LightGray" HorizontalAlignment="Center" Width="1800">
-
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition/>
@@ -187,26 +176,22 @@
                                 <RowDefinition Height="50"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Name="QuestionId" FontSize="30" Text="{Binding LocalId}" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-
+                            <TextBlock Name="QuestionId" FontSize="30" Text="{Binding LocalId, StringFormat={}{0}.}" HorizontalAlignment="Left" Margin="10,0,0,0"/>
                             <TextBox Grid.Column="1" Text="{Binding Content}" FontSize="30" TextWrapping="Wrap" Margin="0,10,0,0"/>
 
                             <DockPanel Grid.Column="1" Grid.Row="1" Margin="0,10,0,10" Width="500" HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <TextBlock Text="Ответ:" FontSize="25" VerticalAlignment="Center" />
                                 <TextBox FontSize="25" Text="{Binding Answer}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="5,0,0,0"/>
                             </DockPanel>
-
+                            
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
 
-
         <Button Grid.Row="5"  Width="50" Height="50" Background="#FF5599E6" Foreground="White" Content="+" FontSize="30"  VerticalAlignment="Center" Command="{Binding AddQuestionCommand}"  HorizontalAlignment="Left" Margin="10,0,0,0" VerticalContentAlignment="Top"/>
         <Button x:Name="DeleteBtn" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Width="50" Height="50" Content="x" FontSize="30" Background="IndianRed" Command="{Binding DeleteQuestionCommand}" Margin="70,0,0,0" VerticalContentAlignment="Top" Visibility="{Binding IsDeleteBtnVisible, Converter={StaticResource BoolToVisibility}}"/>
-
-
         <Button Grid.Row="5" HorizontalAlignment="Center" Width="100" Margin="50,0,0,0" Background="LightGreen" Content="Завершить" FontSize="18" Height="50" VerticalAlignment="Center" Command="{Binding SaveTestCommand}"/>
         <TextBlock Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="600,0,0,0" Text="{Binding WarningText}" Foreground="Red" FontSize="18" Visibility="{Binding IsWarningVisible, Converter={StaticResource BoolToVisibility}}"/>
 
@@ -214,6 +199,5 @@
         <Grid Grid.Row="6" Background="#FFD8D6D6">
             <TextBlock FontSize="40" VerticalAlignment="Center" Text="{Binding DevelopingTest.Categoryid}" Margin="20,0,0,0"/>
         </Grid>
-
     </Grid>
 </Window>

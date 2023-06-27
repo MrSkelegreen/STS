@@ -26,33 +26,7 @@ namespace STS.Windows
     {
         public ApplicantMainWindow()
         {
-            InitializeComponent();
-           // this.DataContext = new AMWvm(user);
-
-            /*string image = "https://papik.pro/uploads/posts/2022-01/1642329969_39-papik-pro-p-testirovanie-klipart-42.png";
-
-            ObservableCollection<Test> Tests = new ObservableCollection<Test>() 
-            { 
-                new Test() {Title = "Тест на знание вин", 
-                                Description = "Тест насколько хорошо вы разбираетесь в сортах вин. Рекомендуется для прохождения сомелье.",
-                                Categoryid = 1, Creationdate = new DateOnly(2023,06,11), Rating = 0, Author = 1,},
-                new Test() {Title = "Тест на знание вин",
-                                Description = "Тест насколько хорошо вы разбираетесь в сортах вин. Рекомендуется для прохождения сомелье.",
-                                Categoryid = 1, Creationdate = new DateOnly(2023,06,11), Rating = 0, Author = 1,},
-                new Test() {Title = "Тест на знание вин",
-                                Description = "Тест насколько хорошо вы разбираетесь в сортах вин. Рекомендуется для прохождения сомелье.",
-                                Categoryid = 1, Creationdate = new DateOnly(2023,06,11), Rating = 0, Author = 1,},
-                new Test() {Title = "Тест на знание вин",
-                                Description = "Тест насколько хорошо вы разбираетесь в сортах вин. Рекомендуется для прохождения сомелье.",
-                                Categoryid = 1, Creationdate = new DateOnly(2023,06,11), Rating = 0, Author = 1,},
-                new Test() {Title = "Тест на знание вин",
-                                Description = "Тест насколько хорошо вы разбираетесь в сортах вин. Рекомендуется для прохождения сомелье.",
-                                Categoryid = 1, Creationdate = new DateOnly(2023,06,11), Rating = 0, Author = 1,}
-            };*/
-
-            //ListBox.ItemsSource = Tests;
-
-            
+            InitializeComponent();        
         }
 
         private void MinimizeWindow(object sender, RoutedEventArgs e)
@@ -79,8 +53,7 @@ namespace STS.Windows
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
+        {         
             this.LBox.Items.Refresh();
         }
 
@@ -97,15 +70,9 @@ namespace STS.Windows
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
-            {
-                // this.SearchButton.RaiseEvent(new RoutedEventArgs(Button.MouseDoubleClickEvent));
-
-                //typeof(System.Windows.Controls.Primitives.ButtonBase).GetMethod("OnClick", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(SearchButton, new object[0]);
-
+            {               
                 SearchButton.Command.Execute(SearchBox.Text);
             }
-        }
-
-        
+        }      
     }  
 }

@@ -38,17 +38,12 @@ namespace STS.ViewModels
 
         private ObservableCollection<Question> _questions;
         public ObservableCollection<Question> Questions
-
-   
-
         {
             get { return _questions; }
             set
             {
-                _questions = value;
-                
-                OnPropertyChanged("Questions");
-                             
+                _questions = value;             
+                OnPropertyChanged("Questions");                           
             }
         }
 
@@ -167,14 +162,12 @@ namespace STS.ViewModels
             CurrentDate = DateOnly.FromDateTime(DateTime.Now);
             IsWarningVisible = false;
             WarningText = string.Empty;
-
             STSContext context = new STSContext();
-            Categories = context.Categories.ToList();
-           
+            Categories = context.Categories.ToList();          
             Difficulties = new List<string> { "Лёгкий", "Средний", "Сложный"};
             SelectedDifficulty = Difficulties[1];
         }
-
+        //Добавить вопрос
         private RelayCommand _addQuestionCommand;
         public RelayCommand AddQuestionCommand
         {
@@ -183,18 +176,14 @@ namespace STS.ViewModels
                 return _addQuestionCommand ??
                     (_addQuestionCommand = new RelayCommand(a =>
                     {
-
                         STSContext context = new STSContext();
-
                         Question q = new Question() { Content = string.Empty, Answer = string.Empty};
-                        q.LocalId = Questions.Count + 1;
-                        //q.Typeid = 4;
+                        q.LocalId = Questions.Count + 1;                       
                         Questions.Add(q);
-
                     }));
             }
         }
-
+        //Сохранить тест
         private RelayCommand _saveTestCommand;
         public RelayCommand SaveTestCommand
         {
@@ -203,15 +192,12 @@ namespace STS.ViewModels
                 return _saveTestCommand ??
                     (_saveTestCommand = new RelayCommand(a =>
                     {
-
-                        STSContext context = new STSContext();
-                                             
+                        STSContext context = new STSContext();                                            
                         if (DevelopingTest.Title != "" && SelectedCategory.Id != 0)
                         {                          
                             if (Questions.Count > 0)
                             {
                                 bool questionsFilled = true; 
-
                                 foreach (Question q in Questions)
                                 {
                                     if (q.Content == "" || q.Answer == "")
@@ -227,15 +213,11 @@ namespace STS.ViewModels
                                     IsWarningVisible = false;
                                     DevelopingTest.Categoryid = SelectedCategory.Id;
                                     DevelopingTest.Creationdate = CurrentDate;
-                                    DevelopingTest.Difficulty = SelectedDifficulty;                                                                      
-                                   
+                                    DevelopingTest.Difficulty = SelectedDifficulty;                                                                                                       
                                     DevelopingTest.Questions = Questions;
-
                                     context.Tests.Add(DevelopingTest);
                                     context.SaveChanges();
-
                                     OpenApplicantWindowCommand.Execute(User);
-
                                 }
                             }
                             else
@@ -248,12 +230,11 @@ namespace STS.ViewModels
                         {
                             IsWarningVisible = true;
                             WarningText = "Ошибка: Укажите название теста и категорию";
-                        }
-                        
+                        }                    
                     }));
             }
         }
-
+        //Удалить вопрос
         private RelayCommand _deleteQuestionCommand;
         public RelayCommand DeleteQuestionCommand
         {
@@ -262,20 +243,16 @@ namespace STS.ViewModels
                 return _deleteQuestionCommand ??
                     (_deleteQuestionCommand = new RelayCommand(d =>
                     {
-
-                        STSContext context = new STSContext();
-                       
+                        STSContext context = new STSContext();                   
                         if(SelectedQuestion != null)
                         {
                             _questions.Remove(SelectedQuestion);
-
                             for (int i = 1; i < Questions.Count + 1; i++)
                             {
                                 Questions[i - 1].LocalId = i;
                             }
                             OnPropertyChanged("Questions");
                         }                      
-
                     }));
             }
         }
@@ -310,13 +287,10 @@ namespace STS.ViewModels
                 return _openCompaniesListWindowCommand ??
                     (_openCompaniesListWindowCommand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         CompaniesListWindow clw = new CompaniesListWindow();
                         clw.DataContext = new CompaniesVM(User);
                         clw.Show();
-
                         foreach (Window item in App.Current.Windows)
                         {
                             if (item.GetType() == typeof(CreateTestWindow))
@@ -324,7 +298,6 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }
@@ -337,13 +310,10 @@ namespace STS.ViewModels
                 return _openFavoritesWindowComand ??
                     (_openFavoritesWindowComand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         FavoritesWindow favoritesWindow = new FavoritesWindow();
                         favoritesWindow.DataContext = new FavoritesVM(User);
                         favoritesWindow.Show();
-
                         foreach (Window item in App.Current.Windows)
                         {
                             if (item.GetType() == typeof(CreateTestWindow))
@@ -351,7 +321,6 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }
@@ -364,13 +333,10 @@ namespace STS.ViewModels
                 return _openProfileWindowCommand ??
                     (_openProfileWindowCommand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         ProfileWindow profileWindow = new ProfileWindow();
                         profileWindow.DataContext = new ProfileVM(User);
                         profileWindow.Show();
-
                         foreach (Window item in App.Current.Windows)
                         {
                             if (item.GetType() == typeof(CreateTestWindow))
@@ -378,7 +344,6 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }

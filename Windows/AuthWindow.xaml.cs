@@ -25,8 +25,7 @@ namespace STS
         public AuthWindow()
         {
             InitializeComponent();
-            this.DataContext = new AuthVM();
-            pwBox.Password = "1";
+            this.DataContext = new AuthVM();           
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)

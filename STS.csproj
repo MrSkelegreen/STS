@@ -38,10 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\ViewModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Images\bookMarkImage.png" />
     <Resource Include="Images\commentIcon.png" />
     <Resource Include="Images\profileIcon.png" />

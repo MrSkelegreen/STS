@@ -26,8 +26,6 @@ public partial class Question: INotifyPropertyChanged
 
     public string? Image { get; set; }
 
-    //public int Typeid { get; set; }
-
     public string Difficulty { get; set; } = null!;
 
     public string Topic { get; set; } = null!;

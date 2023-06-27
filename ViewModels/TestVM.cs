@@ -13,7 +13,6 @@ namespace STS.ViewModels
 {
     class TestVM : BaseViewModel
     {
-
         private Test _selectedTest;
         public Test SelectedTest
         {
@@ -61,13 +60,9 @@ namespace STS.ViewModels
         public TestVM(Test test, User user)
         {
             SelectedTest = test;
-            // STSContext context = new STSContext();
             Questions = new ObservableCollection<Question>();
-
             LoadQuestions();
-
             Counter = 0;
-
             User = user;
         }
 
@@ -80,23 +75,17 @@ namespace STS.ViewModels
                     (_getQuestions = new RelayCommand(t =>
                     {
                         STSContext context = new STSContext();
-
                         var categories = context.Tests.Include(t => t.Category).ToList();
                         var author = context.Tests.Include(t => t.AuthorNavigation).ToList();
                         var qs = context.Tests.Include(t => t.Questions).ToList();
-
                         var questions = new List<Question>();
                         questions = SelectedTest.Questions.OrderBy(q => q.Id).ToList();
-
-                        var neededTest = context.Tests.FirstOrDefault(t => t.Id == SelectedTest.Id);
-
-                        
-
+                        var neededTest = context.Tests.FirstOrDefault(t => t.Id == SelectedTest.Id);                      
                         foreach (Question q in neededTest.Questions)
                         {
+                            q.LocalId += 1;
                             Questions.Add(q);
                         }
-
                     }));
             }
         }
@@ -107,7 +96,6 @@ namespace STS.ViewModels
         }
 
         private RelayCommand _checkAnswersCommand;
-
         public RelayCommand CheckAnswersCommand
         {
             get
@@ -116,7 +104,6 @@ namespace STS.ViewModels
                     (_checkAnswersCommand = new RelayCommand(c =>
                     {
                         STSContext context = new STSContext();
-
                         Counter = 0;
 
                         for(int i = 0; i < Questions.Count; i++)
@@ -129,7 +116,6 @@ namespace STS.ViewModels
 
                         ResultWindow resultWindow = new ResultWindow(Counter.ToString());
                         resultWindow.Show();
-
                     }));
             }
         }
@@ -163,9 +149,7 @@ namespace STS.ViewModels
                 return _openCompaniesListWindowCommand ??
                     (_openCompaniesListWindowCommand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         CompaniesListWindow clw = new CompaniesListWindow();
                         clw.DataContext = new CompaniesVM(User);
                         clw.Show();
@@ -177,7 +161,6 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }
@@ -190,9 +173,7 @@ namespace STS.ViewModels
                 return _openFavoritesWindowComand ??
                     (_openFavoritesWindowComand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         FavoritesWindow favoritesWindow = new FavoritesWindow();
                         favoritesWindow.DataContext = new FavoritesVM(User);
                         favoritesWindow.Show();
@@ -204,7 +185,6 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }
@@ -217,9 +197,7 @@ namespace STS.ViewModels
                 return _openProfileWindowCommand ??
                     (_openProfileWindowCommand = new RelayCommand(o =>
                     {
-
                         STSContext context = new STSContext();
-
                         ProfileWindow profileWindow = new ProfileWindow();
                         profileWindow.DataContext = new ProfileVM(User);
                         profileWindow.Show();
@@ -231,7 +209,6 @@ namespace STS.ViewModels
                                 item.Close();
                             }
                         }
-
                     }));
             }
         }

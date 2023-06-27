@@ -59,21 +59,17 @@ namespace STS.ViewModels
         public CreateCompanyVM(User user) 
         {
             User = user;           
-
             SelectedDate = DateTime.Now;
-
             NewCompany = new Company()
             {
                 Title = string.Empty,
                 Description = string.Empty,
-                Owner = User.Id,
-                //Startdate = DateOnly.FromDateTime(DateTime.Now)
+                Owner = User.Id,               
             };
 
             IsWarningVisible = false;
-
         }
-
+        //Добавить компанию
         private RelayCommand _addCompanyCommand;
         public RelayCommand AddCompanyCommand
         {
@@ -81,20 +77,14 @@ namespace STS.ViewModels
             {
                 return _addCompanyCommand ??
                     (_addCompanyCommand = new RelayCommand(open =>
-                    {
-                        
+                    {                     
                         if (NewCompany.Title != "")
                         {
                             NewCompany.Startdate = DateOnly.FromDateTime(SelectedDate);
-
                             STSContext context = new STSContext();
-
                             context.Companies.Add(NewCompany);
-
-                            context.SaveChanges();
-
+                            context.SaveChanges();    
                             
-
                             foreach (Window item in App.Current.Windows)
                             {
                                 if (item.GetType() == typeof(CompaniesListWindow))
@@ -114,13 +104,11 @@ namespace STS.ViewModels
                                     item.Close();
                                 }
                             }
-
                         }
                         else
                         {
                             IsWarningVisible = true;
                         }
-                      
                     }));
             }
         }
